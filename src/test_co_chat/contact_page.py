@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 
 from src.test_co_chat.BaseObject import BaseObject
 from src.utils.common_str import CommonStr
+from src.utils.random_name_phone import get_post
 
 
 class ContactPage(BaseObject):
@@ -41,13 +42,13 @@ class ContactPage(BaseObject):
         self.driver.find_element(By.ID, "memberAdd_telephone").send_keys("0755" + tel_phone)
         self.driver.find_element(By.ID, "memberAdd_mail").send_keys(rd_phone + "@qq.com")
         self.driver.find_element(By.ID, "memberEdit_address").send_keys(self.comm_str.get_cn_char(8))
-        self.driver.find_element(By.ID, "memberAdd_title").send_keys(self.comm_str.get_cn_char(6))
+        self.driver.find_element(By.ID, "memberAdd_title").send_keys(get_post())
         random.choice(selects[2:4]).click()
         random.choice(selects[4:6]).click()
         # 判断如果选择了自定义则输入自定义的职位
         try:
             self.driver_wait_vist((By.CSS_SELECTOR, ".util_d_n"))
-            self.driver.find_element(By.CSS_SELECTOR, ".util_d_n").send_keys(self.comm_str.get_cn_char(3))
+            self.driver.find_element(By.CSS_SELECTOR, ".util_d_n").send_keys(get_post())
         except:
             pass
         self.driver.find_element(By.CSS_SELECTOR, ".js_btn_save").click()
