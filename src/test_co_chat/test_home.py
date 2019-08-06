@@ -2,24 +2,21 @@
 # -*- coding: utf-8 -*-
 # @Time    :2019/8/5 23:32
 # @Author  :ytq
-# @File    :
-from time import sleep
+import random
 
 import pytest
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
+
+from src.test_co_chat.contact_page import ContactPage
+from src.utils.common_str import CommonStr
 
 
 @pytest.mark.usefixtures("init_driver")
-class TestA:
-    def test_one(self,init_driver):
-        WebDriverWait(init_driver, 50).until(
-            expected_conditions.visibility_of_element_located((By.XPATH, '//*[@id="menu_index"]/span')))
-        init_driver.find_element(By.ID, "menu_contacts").click()
-        WebDriverWait(init_driver, 5).until(expected_conditions.visibility_of_element_located((By.ID, "member_list")))
-        init_driver.find_element(By.CSS_SELECTOR, ".ww_operationBar .js_add_member").click()
-        sleep(5)
-
-if __name__ == '__main__':
-    pytest.main(["-vs"])
+class TestHome:
+    def test_contact(self,init_driver):
+        name = CommonStr().get_cn_char(3)
+        rd_phone = str(random.randint(13000000000, 13900000000))
+        tel_phone = str(random.randint(20000000, 88888888))
+        contact = ContactPage(init_driver)
+        tips = contact.add_member(name,rd_phone,tel_phone)
+        print(tips)
+        assert "保存成功" in tips

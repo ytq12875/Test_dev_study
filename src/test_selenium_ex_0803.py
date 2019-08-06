@@ -20,8 +20,21 @@ class TestSeleniumEx:
         # options = Options()
         # options.add_experimental_option ("debuggerAddress", "127.0.0.1:9222")
         # self.driver = webdriver.Chrome(executable_path = path,options = options)
+        _com_url = "https://work.weixin.qq.com/wework_admin/frame#contacts"
+        _cookies = {
+            "wwrtx.vst": "Nq1Up4blYq_PiiV37S9Y53Vjd_qXrqVAAZmesrAwrAF8VvmJqNADsT_Hk890jSkZBdLB33qTjkGsUCE264eRvJdX5cqTbjfJ_nSAm4UWZFIfXvCubG_BDk-0OKiVGXGVemJkbpw2WTDAPWv7xOpLdEfD5pVJe4c1J4O6XMX-uf4V5_90XorWjiZO3ya_QXpwf5lHXJJOm2A4yTD2VwOrtESFH46ZRdk91mjV8AUsxP5nYVebKJj3B9UrC9dGthMaZnZDR6S4YdhAcPyCY29fvA",
+            "wwrtx.d2st": "a1320545",
+            "wwrtx.sid": "bI84_UY69ZZEAv63EF98PeFtW_oIfsQGXCLA8IB51oF2d8RO1orD0ekRDp_GPiZq",
+            "wwrtx.ltype": "1",
+            "wxpay.corpid": "1970324940078869",
+            "wxpay.vid": "1688851793816595",
+        }
         self.driver = webdriver.Chrome(path)
         self.driver.maximize_window()
+        self.driver.get(_com_url)
+        for k, v in _cookies.items():
+            self.driver.add_cookie({"name": k, "value": v})
+        self.driver.get(_com_url)
         self.driver.implicitly_wait(5)
 
     # 清理，关闭驱动
@@ -42,9 +55,6 @@ class TestSeleniumEx:
         name = self.get_cn_char(3)
         rd_phone = str(random.randint(13000000000, 13900000000))
         tel_phone = str(random.randint(20000000, 88888888))
-        # 先进入企业微信主页登录
-        self.driver.get("https://work.weixin.qq.com/wework_admin/loginpage_wx?from=myhome_baidu")
-        print("*****************请手工扫码登录*****************")
         WebDriverWait(self.driver, 50).until(
             expected_conditions.visibility_of_element_located((By.XPATH, '//*[@id="menu_index"]/span')))
         self.driver.find_element(By.ID, "menu_contacts").click()
