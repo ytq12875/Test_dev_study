@@ -17,6 +17,6 @@ class TestHome:
         rd_phone = get_phone()
         tel_phone = str(random.randint(20000000, 88888888))
         contact = ContactPage(init_driver)
-        tips = contact.add_member(name,rd_phone,tel_phone)
-        print(tips)
+        contact.add_member(name,rd_phone,tel_phone)
+        tips = contact.get_contact_tips()
         assert "保存成功" in tips

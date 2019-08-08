@@ -27,6 +27,20 @@ class BaseObject:
     def get_elements(self, selector):
         return self.driver.find_elements(*self._get_ele_selector(selector))
 
+    def send_value(self, selector,msg):
+        return self.get_element(selector).send_keys(msg)
+
+    def click_element(self, element):
+        return element.click()
+
+    def click_by_selector(self, selector):
+        return self.get_element(selector).click()
+
+    def get_tips(self, selector):
+        self.driver_wait_vist(selector)
+        tips = self.get_element(selector).text
+        return tips if tips else ""
+
     def _get_ele_selector(self, selector):
         if '=>' not in selector:
             elc_method = By.ID
