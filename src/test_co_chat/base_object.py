@@ -21,6 +21,9 @@ class BaseObject:
         WebDriverWait(self.driver, 15).until(
             expected_conditions.invisibility_of_element_located(self._get_ele_selector(selector)))
 
+    def get_element_from_parent(self,element,selector):
+        return element.find_element(*self._get_ele_selector(selector))
+
     def get_element(self, selector):
         return self.driver.find_element(*self._get_ele_selector(selector))
 

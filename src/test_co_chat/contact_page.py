@@ -4,8 +4,8 @@
 # @Author  :ytq
 import random
 
-from src.test_co_chat.BaseObject import BaseObject
-from src.test_co_chat.contact_page_elements import ContactPageElements
+from src.test_co_chat.base_object import BaseObject
+from src.test_co_chat.page_elements import ContactPageElements
 from src.utils.common_str import CommonStr
 from src.utils.random_name_phone import get_post
 
