@@ -26,5 +26,15 @@ class ContactPageElements:
 
 class ProfilePageElements:
     member_list_parent_name = 'selector_selector=>.member_colRight_memberTable_tr_Inactive'
+    member_list_parent_disable_name = 'selector_selector=>.member_colRight_memberTable_tr_Disabled'
     member_list_son_name = 'selector_selector=>td:nth-child(2)'
     member_list_search = 'memberSearchInput'
+    member_edit_button = 'selector_selector=>.js_edit'
+    member_edit_page = 'selector_selector=>.member_edit'
+    member_edit_phone = 'name=>mobile'
+    member_edit_telephone = 'name=>ext_tel'
+    member_edit_email = 'name=>alias'
+    member_edit_save = 'selector_selector=>.js_save'
+    member_edit_tips = 'id=>js_tips'
+    member_edit_status = 'selector_selector=>.js_disable'
+    member_edit_unused_do ='selector_selector=>#__dialog__MNDialog__ > div > div.qui_dialog_foot.ww_dialog_foot > a.qui_btn.ww_btn.ww_btn_Blue'

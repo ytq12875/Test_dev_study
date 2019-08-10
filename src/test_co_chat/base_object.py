@@ -33,6 +33,10 @@ class BaseObject:
     def send_value(self, selector,msg):
         return self.get_element(selector).send_keys(msg)
 
+    def send_new_value(self, selector,msg):
+        self.get_element(selector).clear()
+        return self.get_element(selector).send_keys(msg)
+
     def click_element(self, element):
         return element.click()
 
