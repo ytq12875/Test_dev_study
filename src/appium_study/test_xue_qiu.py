@@ -11,7 +11,6 @@ from selenium.webdriver.common.by import By
 class TestXueQiu:
 
     def setup_method(self):
-
         server = 'http://localhost:4723/wd/hub'
         # app启动参数
         desired_caps = {}
@@ -49,18 +48,13 @@ class TestXueQiu:
         text = self.driver.find_element(By.ID, "com.xueqiu.android:id/md_content").text
         assert "用户名或密码错误" in text
 
-    @pytest.mark.parametrize("search", ["alibaba", "xiaomi", "google"])
-    def test_search(self, search):
+    @pytest.mark.parametrize("search,rst", [("alibaba", "阿里巴巴"), ("xiaomi", "小米"), ("google", "谷歌")])
+    def test_search(self, search, rst):
         self.driver.find_element(By.ID, "com.xueqiu.android:id/home_search").click()
         self.driver.find_element(By.ID, "com.xueqiu.android:id/search_input_text").send_keys(search)
         self.driver.find_element(By.ID, "com.xueqiu.android:id/name").click()
         text = self.driver.find_element(By.ID, "com.xueqiu.android:id/stockName").text
-        if search == "alibaba":
-            assert "阿里巴巴" in text
-        elif search == "xiaomi":
-            assert "小米" in text
-        elif search == "google":
-            assert "谷歌" in text
+        assert rst in text
 
 
 if __name__ == '__main__':
