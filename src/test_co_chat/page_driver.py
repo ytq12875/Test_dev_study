@@ -10,8 +10,8 @@ class PageDriver:
     _path = "D:/webdriver/chromedriver.exe"
     _com_url = "https://work.weixin.qq.com/wework_admin/frame#contacts"
     _cookies = {
-        "wwrtx.d2st": "a2913993",
-        "wwrtx.sid": "bI84_UY69ZZEAv63EF98PRIf8Wkd3G9ihbCC6YAZjvtA63_JvAXolWdg98DIqeea",
+        "wwrtx.d2st": "a2218798",
+        "wwrtx.sid": "bI84_UY69ZZEAv63EF98PUW4An974KBjDtxcz8aoGnoCr6hNGRoOf4-_Yfl83sc0",
         "wwrtx.ltype": "1",
         "wxpay.corpid": "1970324940078869",
         "wxpay.vid": "1688851793816595",

@@ -41,7 +41,7 @@ class BaseObject:
         return element.click()
 
     def click_by_selector(self, selector):
-        return self.get_element(selector).click()
+        self.get_element(selector).click()
 
     def get_tips(self, selector):
         self.driver_wait_vist(selector)
