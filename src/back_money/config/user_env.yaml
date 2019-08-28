@@ -1,0 +1,5 @@
+pre:
+  url: http://10.90.16.88:52102/static/index.html#/login
+
+uat:
+  url: http://10.91.18.142:52102/static/index.html#/login
