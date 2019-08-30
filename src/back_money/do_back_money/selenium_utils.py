@@ -43,7 +43,7 @@ class SeleniumUtils:
 
     def get_rst(self):
         # todo: print(self.driver.find_element(By.CSS_SELECTOR, "textarea .ant-input .ant-input-lg").text)
-        return self.driver.find_element(By.XPATH,"/html/body/div[3]/div/div[2]/div/div[1]/div[2]/form/div[5]/div[2]/div/span/textarea").text
+        # return self.driver.find_element(By.XPATH,"/html/body/div[3]/div/div[2]/div/div[1]/div[2]/form/div[5]/div[2]/div/span/textarea").text
         pass
 
     def quit_driver(self):
@@ -55,7 +55,7 @@ class SeleniumUtils:
             self.goto_service()
             for json_value in json_list:
                 self.set_value_for_back(json_value)
-                print(self.get_rst())
+                # print(self.get_rst())
         except Exception as e:
             print(e)
         finally:
