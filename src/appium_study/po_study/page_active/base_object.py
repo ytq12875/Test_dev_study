@@ -30,6 +30,12 @@ class BaseObject:
             expected_conditions.visibility_of_element_located(self._get_ele_selector(selector)))
         return self.driver.find_elements(*self._get_ele_selector(selector))
 
+    def send_sms(self,phone,msg):
+        self.driver.send_sms(phone,msg)
+
+    def gsm_call(self,phone,action):
+        self.driver.make_gsm_call(phone,action)
+
     def send_key_board(self, keys):
         '''发送按键'''
         sleep(2)

@@ -39,14 +39,13 @@ def get_commond_result(commond):
 
 
 if __name__ == '__main__':
-    list_a = get_commond_result('tasklist|findstr "QQ.exe"')
+    list_a = get_commond_result('tasklist|findstr "elementclient.exe"')
     list_b = get_commond_result('netstat -ano|findstr "%s" ' % list_a[1])
     for index, value in enumerate(list_b):
         if value == "TCP":
             cus_ip = list_b[index + 2].split(":")[0]
-            if cus_ip != "0.0.0.0" and list_b[index+3] == "ESTABLISHED":
-                str = getIpAddr(cus_ip)
-                print("当前与你QQ活跃连接的IP " + cus_ip + " 来自于 " + str)
-            elif cus_ip != "0.0.0.0" and list_b[index+3] == "CLOSE_WAIT":
-                str = getIpAddr(cus_ip)
-                print("当前与你QQ非活跃连接的IP " + cus_ip + " 来自于 " + str)
+            cus_port = list_b[index + 2].split(":")[1]
+            if cus_ip != "0.0.0.0" and list_b[index + 3] == "ESTABLISHED":
+                print("当前与你完美活跃连接的IP " + cus_ip + " 端口 " + cus_port + " 来自于 " + getIpAddr(cus_ip))
+            elif cus_ip != "0.0.0.0" and list_b[index + 3] == "CLOSE_WAIT":
+                print("当前与你完美非活跃连接的IP " + cus_ip + " 端口 " + cus_port + " 来自于 " + getIpAddr(cus_ip))
