@@ -4,6 +4,7 @@
 from time import sleep
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 from src.back_money.common.read_yaml import YamlParser
@@ -16,7 +17,12 @@ class SeleniumUtils:
         user_env_file = YamlParser("user_env", env_path)
         url = user_env_file.get_yaml_data(env).get("url")
         path = "D:/webdriver/chromedriver.exe"
-        self.driver = webdriver.Chrome(path)
+        # 无头模式
+        # chrome_options = Options()
+        # chrome_options.add_argument('--headless')
+        # chrome_options.add_argument('--disable-gpu')
+        # self.driver = webdriver.Chrome(executable_path=path, chrome_options=chrome_options)
+        self.driver = webdriver.Chrome(executable_path=path)
         self.driver.maximize_window()
         self.driver.implicitly_wait(15)
         self.driver.get(url)
@@ -39,11 +45,12 @@ class SeleniumUtils:
         self.driver.find_element(By.ID, "jsonArgs").clear()
         self.driver.find_element(By.ID,"jsonArgs").send_keys(value)
         self.driver.find_element(By.CSS_SELECTOR,".ant-modal-footer .ant-btn.ant-btn-primary.ant-btn-lg").click()
-        sleep(5)
+        sleep(2)
 
     def get_rst(self):
         # todo: print(self.driver.find_element(By.CSS_SELECTOR, "textarea .ant-input .ant-input-lg").text)
-        # return self.driver.find_element(By.XPATH,"/html/body/div[3]/div/div[2]/div/div[1]/div[2]/form/div[5]/div[2]/div/span/textarea").text
+        # self.driver.find_element(By.XPATH,
+        #                          "/html/body/div[4]/div/div[2]/div/div[1]/div[2]/form/div[5]/div[2]/div/span/textarea").text
         pass
 
     def quit_driver(self):

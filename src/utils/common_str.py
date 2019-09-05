@@ -3,7 +3,10 @@
 # @Time    :2019/8/6 22:11
 # @Author  :ytq
 # @File    :
+import datetime
 import random
+import time
+
 
 class CommonStr:
     def get_cn_char(self, num):
@@ -15,3 +18,12 @@ class CommonStr:
             name = bytes.fromhex(val).decode('GBK')
             rd_str += name
         return rd_str
+
+    def get_time_vale(self):
+        now_time = datetime.datetime.now()
+        str_time = now_time.strftime("%Y-%m-%d %X")
+        return str_time
+
+if __name__ == '__main__':
+    com = CommonStr()
+    com.get_time_vale()
