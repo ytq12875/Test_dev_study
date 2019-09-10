@@ -15,6 +15,3 @@ class OptionalSearchPage(OptionalPage,SearchPageElement):
     def search_optional(self,name):
         self.send_value(self.search_form,name)
         self.click_el(self.first_choose)
-
-    def add_optional(self):
-        pass
