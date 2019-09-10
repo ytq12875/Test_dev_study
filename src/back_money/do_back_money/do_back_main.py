@@ -65,8 +65,10 @@ class DoBackMoney:
     def update_stutus(self, jsonlist, db_env):
         update_lis = []
         for json_value in jsonlist:
-            tup_a = (CommonStr().get_time_vale(), json.loads(json_value)["bsmJnlNo"], db_env)
-            update_lis.append(tup_a)
+            if json.loads(json_value)["responseCode"] =="000000":
+                print(json_value)
+                tup_a = (CommonStr().get_time_vale(), json.loads(json_value)["bsmJnlNo"], db_env)
+                update_lis.append(tup_a)
         self.mydb.update(update_lis)
 
     def get_user_input(self):
@@ -103,8 +105,8 @@ class DoBackMoney:
                 json_list = self.make_json_list(db_env, cust_no)
                 if json_list:
                     _selenium = SeleniumUtils(user_env)
-                    _selenium.do_selenium(user, psw, json_list)
-                    self.update_stutus(json_list, db_env)
+                    rtn_json_list = _selenium.do_selenium(user, psw, json_list)
+                    self.update_stutus(rtn_json_list, db_env)
             except:
                 log.info("无可退还的支付数据！")
         except:
@@ -113,9 +115,11 @@ class DoBackMoney:
 
 if __name__ == '__main__':
     do = DoBackMoney()
-    # user_env = "uat"
-    # cust_no = "30020190802003752"
-    # user_env = "pre"
-    # cust_no = "30020190800470254"
-    # date = "20190904"
+    '''
+    user_env = "uat"
+    cust_no = "30020190802003752"
+    user_env = "pre"
+    cust_no = "30020190800470254"
+    date = "20190904"
+    '''
     do.do_back_money()

@@ -1,8 +1,10 @@
 #! /usr/bin/env python
 # -*- coding:utf-8 -*-
 # __author__ = "Yang Tie Qiao"
+import json
 from time import sleep
 
+from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -55,10 +57,13 @@ class SeleniumUtils:
         sleep(1)
 
     def get_rst(self):
-        # todo: print(self.driver.find_element(By.CSS_SELECTOR, "textarea .ant-input .ant-input-lg").text)
-        # self.driver.find_element(By.XPATH,
-        #                          "/html/body/div[4]/div/div[2]/div/div[1]/div[2]/form/div[5]/div[2]/div/span/textarea").text
-        pass
+        source = self.driver.page_source
+        doc = BeautifulSoup(source, "html.parser")
+        doc1_list = doc.find_all('textarea', class_="ant-input ant-input-lg")
+        for doc1 in doc1_list:
+            if 'readonly' in str(doc1):
+                rtn = doc1.get_text()
+                return json.loads(rtn)["responseCode"]
 
     def quit_driver(self):
         self.driver.quit()
@@ -67,9 +72,12 @@ class SeleniumUtils:
         try:
             self.login(user, psw)
             self.goto_service()
+            rtn_json_list = []
             for json_value in json_list:
                 self.set_value_for_back(json_value)
-                # print(self.get_rst())
+                new_json = json.dumps({**json.loads(json_value), **{"responseCode": self.get_rst()}})
+                rtn_json_list.append(new_json)
+            return rtn_json_list
         except Exception as e:
             print(e)
         finally:

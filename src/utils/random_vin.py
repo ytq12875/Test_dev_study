@@ -13,9 +13,15 @@ def random_vin():
         'U': 4, 'V': 5, 'W': 6, 'X': 7, 'Y': 8, 'Z': 9, "0": 0, "1": 1,
         "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9
     }
-    # 位置的全值
+    # 位置的权值
     location_map = [8, 7, 6, 5, 4, 3, 2, 10, 0, 9, 8, 7, 6, 5, 4, 3, 2]
-    vin = ''.join(random.sample('0123456789ABCDEFGHJKLMPRSTUVWXYZ', 17))
+    '''
+    美国 1 德国 W 意大利 I 加拿大 2 韩国 K 泰国 M 墨西哥 3 中国 L 瑞典 S 美国 4 英国 G 日本 J 巴西 5 法国 F 西班牙 E 澳大利亚 6
+    '''
+    vin1 = ''.join(random.sample('1WI2KM3LS4GJ5FE6',1))
+    vin2 = ''.join(random.sample('0123456789ABCDEFGHJKLMPRSTUVWXYZ', 12))
+    vin3 = ''.join(random.sample('0123456789', 4))
+    vin = vin1+vin2+vin3
     num = 0
     for i in range(len(vin)):
         num = num + content_map[vin[i]] * location_map[i]
