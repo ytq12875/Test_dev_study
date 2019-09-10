@@ -8,11 +8,11 @@ from src.utils.log_utils import LogUtils
 
 log = LogUtils()
 
-class SqliteUtils:
 
+class SqliteUtils:
     SHOW_SQL = True
 
-    def __init__(self,path = None):
+    def __init__(self, path=None):
         if path:
             self.path = path
         else:
@@ -33,7 +33,7 @@ class SqliteUtils:
             # conn.text_factory = lambda x: unicode(x, 'utf-8', 'ignore')
             conn.text_factory = str
             if os.path.exists(self.path) and os.path.isfile(self.path):
-                log.info('硬盘上面:[{}]'.format(self.path))
+                log.info('本地数据库:[{}]'.format(self.path))
                 return conn
         except sqlite3.OperationalError as e:
             log.error("Error:%s" % e)
@@ -57,7 +57,7 @@ class SqliteUtils:
         except sqlite3.OperationalError as e:
             log.info("Error:%s" % e)
 
-    def create_table(self, sql,uni = None):
+    def create_table(self, sql, uni=None):
         """
         创建数据库表
         """
@@ -128,7 +128,7 @@ class SqliteUtils:
             if len(r) > 0:
                 # for e in range(len(r)):
                 #     print(r[e])
-                    # return r[e]
+                # return r[e]
                 return r
             self.close_all(conn, cu)
         else:
@@ -192,6 +192,7 @@ class SqliteUtils:
         else:
             log.error('the [{}] is empty or equal None!'.format(sql))
 
+
 if __name__ == '__main__':
     dbfile = 'MySqlite.db'
     mydb = SqliteUtils(dbfile)
@@ -208,4 +209,4 @@ if __name__ == '__main__':
     # mydb.insert(sql, data)
     # mydb.drop_table('Product')
     fech_sql = '''SELECT * FROM Product1 where ID >?'''
-    print(mydb.fetchone(fech_sql,0))
+    print(mydb.fetchone(fech_sql, 0))

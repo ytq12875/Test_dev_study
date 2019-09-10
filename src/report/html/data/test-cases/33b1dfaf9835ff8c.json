@@ -1,0 +1,87 @@
+{
+  "uid" : "33b1dfaf9835ff8c",
+  "name" : "test_no_login_visit[霍格沃兹测试学院]",
+  "fullName" : "test_selenium_ex_0729.TestSeleniumEx#test_no_login_visit[霍格沃兹测试学院]",
+  "historyId" : "4a62fecea3a0a1141542b56025218ed9",
+  "time" : {
+    "start" : 1565772065517,
+    "stop" : 1565772074873,
+    "duration" : 9356
+  },
+  "status" : "passed",
+  "flaky" : false,
+  "beforeStages" : [ {
+    "name" : "_Class__pytest_setup_method",
+    "time" : {
+      "start" : 1565772058364,
+      "stop" : 1565772065516,
+      "duration" : 7152
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "stepsCount" : 0,
+    "hasContent" : false
+  } ],
+  "afterStages" : [ {
+    "name" : "_Class__pytest_setup_method::0",
+    "time" : {
+      "start" : 1565772074877,
+      "stop" : 1565772076664,
+      "duration" : 1787
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "stepsCount" : 0,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "parentSuite"
+  }, {
+    "name" : "suite",
+    "value" : "test_selenium_ex_0729"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestSeleniumEx"
+  }, {
+    "name" : "host",
+    "value" : "HP-PC"
+  }, {
+    "name" : "thread",
+    "value" : "11004-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "test_selenium_ex_0729"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ {
+    "name" : "home",
+    "value" : "'霍格沃兹测试学院'"
+  } ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "33b1dfaf9835ff8c.json",
+  "parameterValues" : [ "'霍格沃兹测试学院'" ]
+}

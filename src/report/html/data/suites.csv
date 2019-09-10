@@ -1,0 +1,6 @@
+"Status","Name","Duration in ms","Description"
+"passed","test_selenium_ex_0729.TestSeleniumEx#test_error_login[lisi-123456]","3338",""
+"passed","test_selenium_ex_0729.TestSeleniumEx#test_last_article","6909",""
+"passed","test_selenium_ex_0729.TestSeleniumEx#test_no_login_visit[霍格沃兹测试学院]","9356",""
+"passed","test_selenium_ex_0729.TestSeleniumEx#test_error_login[zhangsan-454521]","3566",""
+"passed","test_selenium_ex_0729.TestSeleniumEx#test_query[测试媛-[href=""/topics/4331""]-TesterHome 测试媛组织成立啦]","6792",""

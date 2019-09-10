@@ -1,0 +1,51 @@
+[ {
+  "uid" : "44345934112b1207",
+  "name" : "test_error_login[lisi-123456]",
+  "time" : {
+    "start" : 1565772082328,
+    "stop" : 1565772085666,
+    "duration" : 3338
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "e8467d9c10bdeecb",
+  "name" : "test_last_article",
+  "time" : {
+    "start" : 1565772049809,
+    "stop" : 1565772056718,
+    "duration" : 6909
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "33b1dfaf9835ff8c",
+  "name" : "test_no_login_visit[霍格沃兹测试学院]",
+  "time" : {
+    "start" : 1565772065517,
+    "stop" : 1565772074873,
+    "duration" : 9356
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "89f339fc6a8c4593",
+  "name" : "test_error_login[zhangsan-454521]",
+  "time" : {
+    "start" : 1565772092637,
+    "stop" : 1565772096203,
+    "duration" : 3566
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "36d2fc7106f40aa9",
+  "name" : "test_query[测试媛-[href=\"/topics/4331\"]-TesterHome 测试媛组织成立啦]",
+  "time" : {
+    "start" : 1565772103529,
+    "stop" : 1565772110321,
+    "duration" : 6792
+  },
+  "status" : "passed",
+  "severity" : "normal"
+} ]

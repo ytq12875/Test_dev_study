@@ -2,64 +2,72 @@
 # -*- coding:utf-8 -*-
 # __author__ = "Yang Tie Qiao"
 
-import logging,time
-# log_path是存放日志的路径
+import logging
 import os
+import time
 
 
-cur_path = os.path.dirname(os.path.realpath(__file__))
-log_path = os.path.join(os.path.dirname(cur_path), 'logs')
-# 如果不存在这个logs文件夹，就自动创建一个
-if not os.path.exists(log_path):os.mkdir(log_path)
 class LogUtils(object):
+    """
+    终端打印不同颜色的日志，在pycharm中如果强行规定了日志的颜色， 这个方法不会起作用， 但是
+    对于终端，这个方法是可以打印不同颜色的日志的。
+    """
+
+    # 在这里定义StreamHandler，可以实现单例， 所有的logger()共用一个StreamHandler
+    ch = logging.StreamHandler()
 
     def __init__(self):
-        # 文件的命名
-        self.logname = os.path.join(log_path, '%s.log' % time.strftime('%Y_%m_%d'))
         self.logger = logging.getLogger()
-        self.logger.setLevel(logging.DEBUG)
-        # 日志输出格式
-        self.formatter = logging.Formatter('[%(asctime)s - %(levelname)s: %(message)s')
+        if not self.logger.handlers:
+            # 如果self.logger没有handler， 就执行以下代码添加handler
+            self.logger.setLevel(logging.DEBUG)
+            cur_path = os.path.dirname(os.path.realpath(__file__))
+            self.log_path = os.path.join(os.path.dirname(cur_path), 'logs')
+            if not os.path.exists(self.log_path):
+                os.makedirs(self.log_path)
 
-    def __console(self, level, message):
-        # 创建一个FileHandler，用于写到本地
-        fh = logging.FileHandler(self.logname, 'a', encoding='utf-8')  # 这个是python3的
-        fh.setLevel(logging.DEBUG)
-        fh.setFormatter(self.formatter)
-        self.logger.addHandler(fh)
+            # 创建一个handler,用于写入日志文件
+            fh = logging.FileHandler(self.log_path + '/RunLog_' + time.strftime("%Y%m%d", time.localtime()) + '.log',
+                                     encoding='utf-8')
+            fh.setLevel(logging.DEBUG)
 
-        # 创建一个StreamHandler,用于输出到控制台
-        ch = logging.StreamHandler()
-        ch.setLevel(logging.DEBUG)
-        ch.setFormatter(self.formatter)
-        self.logger.addHandler(ch)
+            # 定义handler的输出格式
+            formatter = logging.Formatter('[%(asctime)s] - [%(levelname)s] - %(message)s')
+            fh.setFormatter(formatter)
 
-        if level == 'info':
-            self.logger.info(message)
-        elif level == 'debug':
-            self.logger.debug(message)
-        elif level == 'warning':
-            self.logger.warning(message)
-        elif level == 'error':
-            self.logger.error(message)
-        # 这两行代码是为了避免日志输出重复问题
-        self.logger.removeHandler(ch)
-        self.logger.removeHandler(fh)
-        # 关闭打开的文件
-        fh.close()
+            # 给logger添加handler
+            self.logger.addHandler(fh)
 
     def debug(self, message):
-        self.__console('debug', message)
+        self.fontColor('\033[0;32m%s\033[0m')
+        self.logger.debug(message)
 
     def info(self, message):
-        self.__console('info', message)
+        self.fontColor('\033[0;34m%s\033[0m')
+        self.logger.info(message)
 
     def warning(self, message):
-        self.__console('warning', message)
+        self.fontColor('\033[0;37m%s\033[0m')
+        self.logger.warning(message)
 
     def error(self, message):
-        self.__console('error', message)
+        self.fontColor('\033[0;31m%s\033[0m')
+        self.logger.error(message)
 
-if __name__ == '__main__':
-    log = LogUtils()
-    log.info("Hello World")
+    def critical(self, message):
+        self.fontColor('\033[0;35m%s\033[0m')
+        self.logger.critical(message)
+
+    def fontColor(self, color):
+        # 不同的日志输出不同的颜色
+        formatter = logging.Formatter(color % '[%(asctime)s] - [%(levelname)s] - %(message)s')
+        self.ch.setFormatter(formatter)
+        self.logger.addHandler(self.ch)
+
+
+if __name__ == "__main__":
+    logger = LogUtils()
+    logger.info("12345")
+    logger.debug("12345")
+    logger.warning("12345")
+    logger.error("12345")

@@ -1,0 +1,97 @@
+{
+  "23a194eac793a6ecf379832e0291f7c7" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 1,
+      "unknown" : 0,
+      "total" : 1
+    },
+    "items" : [ {
+      "uid" : "e8467d9c10bdeecb",
+      "status" : "passed",
+      "time" : {
+        "start" : 1565772049809,
+        "stop" : 1565772056718,
+        "duration" : 6909
+      }
+    } ]
+  },
+  "8d88f81cb11462056cae81bd53dfdb49" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 1,
+      "unknown" : 0,
+      "total" : 1
+    },
+    "items" : [ {
+      "uid" : "89f339fc6a8c4593",
+      "status" : "passed",
+      "time" : {
+        "start" : 1565772092637,
+        "stop" : 1565772096203,
+        "duration" : 3566
+      }
+    } ]
+  },
+  "98fe31e1700d771cf91cd701c043a684" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 1,
+      "unknown" : 0,
+      "total" : 1
+    },
+    "items" : [ {
+      "uid" : "36d2fc7106f40aa9",
+      "status" : "passed",
+      "time" : {
+        "start" : 1565772103529,
+        "stop" : 1565772110321,
+        "duration" : 6792
+      }
+    } ]
+  },
+  "4a62fecea3a0a1141542b56025218ed9" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 1,
+      "unknown" : 0,
+      "total" : 1
+    },
+    "items" : [ {
+      "uid" : "33b1dfaf9835ff8c",
+      "status" : "passed",
+      "time" : {
+        "start" : 1565772065517,
+        "stop" : 1565772074873,
+        "duration" : 9356
+      }
+    } ]
+  },
+  "8ae6653a376abe0aadd1f29f55ff014c" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 1,
+      "unknown" : 0,
+      "total" : 1
+    },
+    "items" : [ {
+      "uid" : "44345934112b1207",
+      "status" : "passed",
+      "time" : {
+        "start" : 1565772082328,
+        "stop" : 1565772085666,
+        "duration" : 3338
+      }
+    } ]
+  }
+}
