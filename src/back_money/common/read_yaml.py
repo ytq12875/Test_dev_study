@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # -*- coding:utf-8 -*-
 # __author__ = "Yang Tie Qiao"
+import codecs
 import os
 
 import yaml
@@ -12,9 +13,10 @@ class YamlParser:
         else:
             yaml_file =path + "\\" + file +".yaml"
         # 打开yaml文件
-        file = open(yaml_file, 'r', encoding="utf-8")
-        self.file_data = file.read()
-        file.close()
+        # print(yaml_file)
+        file1 = codecs.open(yaml_file, 'r')
+        self.file_data = file1.read()
+        file1.close()
 
     def get_yaml_load_all(self):
         all_data = yaml.load_all(self.file_data, Loader=yaml.FullLoader)

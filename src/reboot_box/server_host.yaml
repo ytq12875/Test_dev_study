@@ -1,0 +1,82 @@
+uat:
+  user: tomcat
+  psw: ldygo@9012!@#$%&*#
+  host1:
+    - 10.91.138.140
+    - box: [Nginx,gwb01,gwm01,gwp01,gwo01]
+  host2:
+    - 10.91.18.140
+    - box: [A0001,A1001,G0001,P0601,R0001,S0101,obd01,sms01,ume01]
+  host3:
+    - 10.91.18.141
+    - box: [S0601,S0001,omc01,wko01,S0901,ode01]
+  host4:
+    - 10.91.18.142
+    - box: [C0001,F0201,F1001,S0201,S0301,S0401,S0701,pkc01]
+  host5:
+    - 10.91.18.117
+    - box: [cmbj1,finj1,mopj1,opej1,ordj1,payj1,prcj1,pymj1,vehj1,wkoj1]
+  host6:
+    - 10.91.138.100
+    - box: [gwb11,gwm11,gwp11,gwo11]
+  host7:
+    - 10.91.18.100
+    - box: [C0001,F0211,F1011,S0211,S0311,S0411,S0711,wko11,pkc11]
+  host8:
+    - 10.91.18.101
+    - box: [S0011,S0611,S0911,stf11]
+  host9:
+    - 10.91.18.102
+    - box: [E0011,G0011,P0611,R0011,S0111,obd11,sms11]
+
+pre:
+  user: tomcat
+  psw: ldygo@2016#
+  host1:
+    - 10.90.136.45
+    - box: [gwb01,gwm01,gwo01,gwp01]
+  host2:
+    - 10.90.16.83
+    - box: [A0001,A1001,sms01]
+  host3:
+    - 10.90.16.84
+    - box: [F0201,G0001,P0601,S0001,S0101]
+  host4:
+    - 10.90.16.85
+    - box: [S0201,S0301,S0401,S0601,S0701,S0901]
+  host5:
+    - 10.90.16.86
+    - box: [obd01,ode01,omc01,pkc01]
+  host6:
+    - 10.90.16.87
+    - box: [wko01,ume01]
+  host7:
+    - 10.90.16.88
+    - box: [C0001]
+  host8:
+    - 10.90.136.101
+    - box: [gwb11,gwm11,gwo11,gwp11]
+  host9:
+    - 10.90.16.101
+    - box: [E0011,R0011,sms11,F0211]
+  host10:
+    - 10.90.16.102
+    - box: [S0011,S0111,S0211,S0311]
+  host11:
+    - 10.90.16.103
+    - box: [P0611,S0411,S0611,S0711,S0911]
+  host12:
+    - 10.90.16.104
+    - box: [C0011,G0011,obd11,wko11,pkc11]
+  host13:
+    - 10.90.16.105
+    - box: [F1011,stf11]
+  host14:
+    - 10.90.16.95
+    - box: [F1001]
+  host15:
+    - 10.90.16.97
+    - box: [cmbj1,finj1,mopj1,ordj1,payj1,prcj1,pymj1,vehj1,wkoj1]
+  host16:
+    - 10.90.136.44
+    - box: [web,Nginx]

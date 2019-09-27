@@ -3,7 +3,7 @@
 # __author__ = "Yang Tie Qiao"
 import json
 
-from src.back_money.do_back_money.data_collection import DataCollection
+from src.back_money.common.data_collection import DataCollection
 from src.back_money.do_back_money.selenium_utils import SeleniumUtils
 from src.utils.common_str import CommonStr
 from src.utils.log_utils import LogUtils
@@ -27,7 +27,7 @@ class DoBackMoney:
             _sql = "select bsm_jnl_no, cap_channel_no from pcenter.pay_consume_jnl where pay_order_no in (select pay_order_no from pcenter.pay_consume_order where cust_no = '%s')"
             get_value_sql = _sql % (cust_no)
         db = MysqlConnect(db_env)
-        log.info("服务器数据库执行sql："+ get_value_sql)
+        log.info("服务器数据库执行sql：" + get_value_sql)
         rst = db.doSelect(get_value_sql)
         if len(rst) > 0:
             return list(rst)
@@ -39,11 +39,15 @@ class DoBackMoney:
         log.info("从本地数据库读取待对比的数据...")
         db_has_data = self.mydb.fetchone(db_env, cust_no)
         for value in self.get_all_back_value(cust_no, db_env, date):
-            if value[0] and value[1] in ("1001", "1002") and value not in db_has_data:
-                insert_data.append(value)
+            if db_has_data:
+                if value[0] and value[1] in ("1001", "1002") and value not in db_has_data:
+                    insert_data.append(value)
+            else:
+                if value[0] and value[1] in ("1001", "1002"):
+                    insert_data.append(value)
         if insert_data:
             try:
-                self.mydb.insert_data(insert_data, db_env,cust_no)
+                self.mydb.insert_data(insert_data, db_env, cust_no)
             except:
                 pass
         else:
@@ -52,7 +56,7 @@ class DoBackMoney:
     def make_json_list(self, db_env, cus_no):
         '''{
     "payChannelNo": "1002",
-    "bsmJnlNo": "100220190726160036ST90100022"
+    "bsmJnlNo": "100220190913174841ST90100625"
     }   '''
         rtn_list = []
         for value in self.mydb.fetchall(db_env, cus_no):
@@ -65,9 +69,13 @@ class DoBackMoney:
     def update_stutus(self, jsonlist, db_env):
         update_lis = []
         for json_value in jsonlist:
-            if json.loads(json_value)["responseCode"] =="000000":
-                print(json_value)
-                tup_a = (CommonStr().get_time_vale(), json.loads(json_value)["bsmJnlNo"], db_env)
+            '''
+            返回值responseCode为000000时为处理成功状态，为664002时则是流水号不存在
+            '''
+            rtn_msg = json.loads(json_value)["rtn_msg"]
+            rtn_code = json.loads(rtn_msg)["responseCode"]
+            if rtn_code == "000000" or rtn_code == "664002":
+                tup_a = (CommonStr().get_time_vale(), rtn_code, rtn_msg, json.loads(json_value)["bsmJnlNo"], db_env)
                 update_lis.append(tup_a)
         self.mydb.update(update_lis)
 
@@ -90,7 +98,7 @@ class DoBackMoney:
                         db_env = "pre_db"
                     cust_no = data_list[1]
                     self.insert_will_back_value(cust_no, db_env, date)
-                    return db_env,user_env,cust_no
+                    return db_env, user_env, cust_no
                 else:
                     log.error("输入的环境有误！")
             else:
@@ -108,15 +116,16 @@ class DoBackMoney:
                     rtn_json_list = _selenium.do_selenium(user, psw, json_list)
                     self.update_stutus(rtn_json_list, db_env)
             except:
-                log.info("无可退还的支付数据！")
-        except:
-            pass
+                log.warning("无可退还的支付数据或组装json数据出现了问题！")
+        except Exception as e:
+            log.error(e)
 
 
 if __name__ == '__main__':
     do = DoBackMoney()
     '''
     user_env = "uat"
+    cust_no = "30020190802004051"
     cust_no = "30020190802003752"
     user_env = "pre"
     cust_no = "30020190800470254"

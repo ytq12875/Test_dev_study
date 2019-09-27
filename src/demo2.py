@@ -57,12 +57,18 @@ def check(id_num):
 
 if __name__ == '__main__':
 
-    fileName="./utils/area.csv"  #区域文件地址
-    areaCodeDt=areaCodeDict(fileName)   #调用生成字典
-    areaCd=areaCode(areaCodeDt)     #生成区域码
-    areaCdName=areaCodeDt[areaCd]   #获取区域名称
-    birthDy=birthDay()   #生成出生日期
-    (ordNum,sex)=ordrNum()  #生成顺序号和性别
-    checkcode=check((areaCd+birthDy+ordNum)) #生产校验码
-    id_card=areaCd+birthDy+ordNum+checkcode  #拼装身份证号
-    print(id_card)
+    # fileName="./utils/area.csv"  #区域文件地址
+    # areaCodeDt=areaCodeDict(fileName)   #调用生成字典
+    # areaCd=areaCode(areaCodeDt)     #生成区域码
+    # areaCdName=areaCodeDt[areaCd]   #获取区域名称
+    # birthDy=birthDay()   #生成出生日期
+    # (ordNum,sex)=ordrNum()  #生成顺序号和性别
+    # checkcode=check((areaCd+birthDy+ordNum)) #生产校验码
+    # id_card=areaCd+birthDy+ordNum+checkcode  #拼装身份证号
+    # print(id_card)
+    import turtle as t
+    t.color("blue")
+    for i in range(400):
+        t.fd(i)
+        t.left(50)
+    t.done()

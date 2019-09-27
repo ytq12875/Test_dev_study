@@ -6,6 +6,6 @@ uat_pay_db:
 
 pre_db:
   host: 10.90.16.109
-  port: 3311
+  port: 3324
   user: ldyop
   passwd: Ldyop123@ldygo.com

@@ -16,11 +16,11 @@ class LogUtils(object):
     # 在这里定义StreamHandler，可以实现单例， 所有的logger()共用一个StreamHandler
     ch = logging.StreamHandler()
 
-    def __init__(self):
+    def __init__(self,level = logging.INFO):
         self.logger = logging.getLogger()
         if not self.logger.handlers:
             # 如果self.logger没有handler， 就执行以下代码添加handler
-            self.logger.setLevel(logging.DEBUG)
+            self.logger.setLevel(level)
             cur_path = os.path.dirname(os.path.realpath(__file__))
             self.log_path = os.path.join(os.path.dirname(cur_path), 'logs')
             if not os.path.exists(self.log_path):

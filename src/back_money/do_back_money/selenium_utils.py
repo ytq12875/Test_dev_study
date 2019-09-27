@@ -8,6 +8,8 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 from src.back_money.common.read_yaml import YamlParser
 from src.utils.log_utils import LogUtils
@@ -54,7 +56,8 @@ class SeleniumUtils:
         log.info("进行数据：" + value + "的退款操作...")
         self.driver.find_element(By.ID, "jsonArgs").send_keys(value)
         self.driver.find_element(By.CSS_SELECTOR, ".ant-modal-footer .ant-btn.ant-btn-primary.ant-btn-lg").click()
-        sleep(1)
+        # WebDriverWait(self.driver,15).until(EC.invisibility_of_element_located((By.CSS_SELECTOR, ".ant-modal-footer .ant-btn.ant-btn-primary.ant-btn-lg.ant-btn-loading.ant-btn-clicked")))
+        sleep(2)
 
     def get_rst(self):
         source = self.driver.page_source
@@ -62,8 +65,8 @@ class SeleniumUtils:
         doc1_list = doc.find_all('textarea', class_="ant-input ant-input-lg")
         for doc1 in doc1_list:
             if 'readonly' in str(doc1):
-                rtn = doc1.get_text()
-                return json.loads(rtn)["responseCode"]
+                return doc1.get_text()
+                # return json.loads(rtn)["responseCode"]
 
     def quit_driver(self):
         self.driver.quit()
@@ -75,7 +78,7 @@ class SeleniumUtils:
             rtn_json_list = []
             for json_value in json_list:
                 self.set_value_for_back(json_value)
-                new_json = json.dumps({**json.loads(json_value), **{"responseCode": self.get_rst()}})
+                new_json = json.dumps({**json.loads(json_value), **{"rtn_msg": self.get_rst()}})
                 rtn_json_list.append(new_json)
             return rtn_json_list
         except Exception as e:

@@ -1,16 +1,21 @@
 #! /usr/bin/env python
 # -*- coding:utf-8 -*-
 # __author__ = "Yang Tie Qiao"
+import os
+
 from src.back_money.do_back_money.sqlite_utls import SqliteUtils
 from src.utils.common_str import CommonStr
 from src.utils.log_utils import LogUtils
 
 log = LogUtils()
 
+path = os.path.dirname(os.getcwd())
+path = os.path.dirname(path)
+
 class DataCollection:
 
     def __init__(self):
-        dbfile = 'MySqlite.db'
+        dbfile = path + '\\sqlite_db\\MySqlite.db'
         self.mydb = SqliteUtils(dbfile)
 
     def create_table_data_table(self):
@@ -27,7 +32,7 @@ class DataCollection:
         self.mydb.create_table(create_table_sql,uni=uni)
 
     def insert_data(self,lis,env,cus_no):
-        insert_sql = '''INSERT INTO user_data VALUES(?, ?, ?, ?, ?, ?, ?, ?)'''
+        insert_sql = '''INSERT INTO user_data VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
         new_list = []
         for i in lis:
             i = list(i)
@@ -37,6 +42,8 @@ class DataCollection:
             i.insert(5, '0')
             i.insert(6,CommonStr().get_time_vale())
             i.insert(7,'')
+            i.insert(8, '')
+            i.insert(9, '')
             i = tuple(i)
             new_list.append(i)
         self.mydb.insert(insert_sql, new_list)
@@ -46,7 +53,7 @@ class DataCollection:
         更新数据
         """
         log.info('更新已经使用过的数据状态...')
-        update_sql = '''UPDATE user_data SET has_used = '1',update_time = ? WHERE bsm_jnl_no = ? and env = ? '''
+        update_sql = '''UPDATE user_data SET has_used = '1',update_time = ? ,rtn_code =? ,rtn_msg = ? WHERE bsm_jnl_no = ? and env = ? '''
         self.mydb.update(update_sql, lis)
 
     def fetchall(self,env,cus_no):
@@ -63,4 +70,5 @@ class DataCollection:
 
 if __name__ == '__main__':
     do = DataCollection()
-    do.create_table_data_table()
+    # do.create_table_data_table()
+    print(do.fetchone("pre_db", "30020190800470254"))
