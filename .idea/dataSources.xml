@@ -99,11 +99,11 @@
         <property name="yearIsDateType" value="false" />
       </driver-properties>
     </data-source>
-    <data-source source="LOCAL" name="MySqlite" uuid="47d47209-5f8e-4f6c-9c33-8f54ad723f07">
+    <data-source source="LOCAL" name="MySqlite" uuid="05650ef2-3144-4d71-afb1-1f61de077d7f">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:D:\Users\ytq\PycharmProjects\TestHome\src\sqlite_db\MySqlite.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:D:\Test_dev\src\sqlite_db\MySqlite.db</jdbc-url>
       <driver-properties>
         <property name="enable_load_extension" value="true" />
       </driver-properties>
