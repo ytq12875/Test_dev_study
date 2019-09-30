@@ -2,13 +2,17 @@
 # -*- coding:utf-8 -*-
 # __author__ = "Yang Tie Qiao"
 import datetime
+import os
 import random
 
 
 class RandomIdCard:
 
     def __init__(self):
-        self.filename = "./area.csv"
+        cur_path = os.getcwd()
+        rootPath = cur_path[:cur_path.find("Test_dev\\") + len("Test_dev\\")]
+        csv_path = rootPath + "/src/utils/area.csv"
+        self.filename = csv_path
     # 功能：从csv文件中读取一个区域编码字典
     # 输入：文件名称
     def __areaCodeDict(self):
