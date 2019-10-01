@@ -74,7 +74,7 @@ def pakage_check(idmsg,name):
     dic_son["customerName"] = name
     dic_son["identifyNo"] = idmsg[0]
     dic["body"] = dic_son
-    return json.dumps(dic,ensure_ascii=False).encode("utf-8")
+    return json.dumps(dic,ensure_ascii=False,separators=(',', ':')).encode("utf-8")
 
 def get_cus_info():
     id_msg = get_id_items()
@@ -118,7 +118,7 @@ def get_cus_info():
 def get_json_value():
     dic_json_value = {}
     dic_json_value["body"] = get_cus_info()
-    return json.dumps(dic_json_value,ensure_ascii=False).encode("utf-8")
+    return json.dumps(dic_json_value,ensure_ascii=False,separators=(',', ':')).encode("utf-8")
 
 
 if __name__ == '__main__':
