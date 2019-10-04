@@ -79,14 +79,12 @@ def pakage_check(idmsg,name):
 def get_cus_info():
     id_msg = get_id_items()
     name = get_name()
-    ret = s.request('POST', url=check_url, data=pakage_check(id_msg,name), headers=headers)
-    print(ret.text)
     wec, wec_type, alipay, alipay_type = get_wec_and_alipay()
     cus_info = {}
     cus_info["companyPhone"] = "075445" + str(random.randint(10000,63214))
     cus_info["contacts"] = get_contacts()
     cus_info["companyAddress"] = "延吉街%s号-8-%s" %(random.randint(1,999),random.randint(1,99))
-    cus_info["company"] = "企鹅公司"
+    cus_info["company"] = "企鹅有限公司"
     cus_info["earns"] = str(random.randint(0,999999))
     cus_info["education"] = random.choice(("L10","L20","L30","L40","L50","L60","L70","L80","L90","L99"))
     cus_info["homeAddress"] =  "龙华区清湖街道%s号-%s-%s" %(random.randint(1,999),random.randint(1,99),random.randint(1,99))
@@ -122,12 +120,12 @@ def get_json_value():
 
 
 if __name__ == '__main__':
-    s = requests.Session()
-    ret = s.request('POST', url=login_url, data=login_data, headers=headers)
-    print(ret.text)
-    ret1 = s.request('POST', url=add_cus_url, data=get_json_value(), headers=headers,)
-    print(ret1.text)
-    # print(pakage_check(get_id_items(),get_name()))
-    # print(json_value.encode("utf-8"))
-    # print(get_json_value())
+    # s = requests.Session()
+    # ret = s.request('POST', url=login_url, data=login_data, headers=headers)
+    # print(ret.text)
+    # ret1 = s.request('POST', url=add_cus_url, data=get_json_value(), headers=headers,)
+    # print(ret1.text)
+    # print(pakage_check(get_cus_info()["identifyNo"],get_cus_info()["customerName"]))
+    print(json_value.encode("utf-8"))
+    print(get_json_value())
     pass
