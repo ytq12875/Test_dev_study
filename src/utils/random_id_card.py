@@ -37,8 +37,10 @@ class RandomIdCard:
 
     # 功能：随机生成1930年之后的出生日期
     def __birthDay(self):
-        d1 = datetime.datetime.strptime('1930-01-01 00:00:00', '%Y-%m-%d %H:%M:%S')
-        d2 = datetime.datetime.now()
+        # d1 = datetime.datetime.strptime('1930-01-01 00:00:00', '%Y-%m-%d %H:%M:%S')
+        # d2 = datetime.datetime.now()
+        d1 = datetime.datetime.strptime('1960-01-01 00:00:00', '%Y-%m-%d %H:%M:%S')
+        d2 = datetime.datetime.strptime('1995-12-31 00:00:00', '%Y-%m-%d %H:%M:%S')
         delta = d2 - d1
         dys = delta.days
         i = random.randint(0, dys)
