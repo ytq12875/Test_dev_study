@@ -9,3 +9,9 @@ pre_db:
   port: 3324
   user: ldyop
   passwd: Ldyop123@ldygo.com
+
+ex_db:
+  host: 10.60.80.94
+  port: 3311
+  user: ldyop
+  passwd: Ldyop123@ldygo.com

@@ -80,11 +80,11 @@ class DoBackMoney:
         self.mydb.update(update_lis)
 
     def get_user_input(self):
-        user_data = input("请输入待退款的信息：“环境（uat或者pre）,客户号,日期”，输入信息以英文的逗号隔开，如果要退客户名下全部支付金额则日期为空！\n")
+        user_data = input("请输入待退款的信息：“环境（uat、pre或ex）,客户号,日期”，输入信息以英文的逗号隔开，如果要退客户名下全部支付金额则日期为空！\n")
         if user_data:
             data_list = user_data.split(",")
             if len(data_list) == 2 or len(data_list) == 3:
-                if data_list[0] in ('uat', "pre"):
+                if data_list[0] in ('uat', "pre", "ex"):
                     if len(data_list) == 3:
                         date = data_list[2]
                     else:
@@ -93,9 +93,12 @@ class DoBackMoney:
                     if env == 'uat':
                         user_env = "uat"
                         db_env = "uat_pay_db"
-                    else:
+                    elif env == 'pre':
                         user_env = "pre"
                         db_env = "pre_db"
+                    else:
+                        user_env = "ex"
+                        db_env = "ex_db"
                     cust_no = data_list[1]
                     self.insert_will_back_value(cust_no, db_env, date)
                     return db_env, user_env, cust_no

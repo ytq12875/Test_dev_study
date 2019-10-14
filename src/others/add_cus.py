@@ -19,6 +19,7 @@ headers = {"Content-Type": "application/json;charset=utf-8"}
 login_data = '{"body":{"userName":"%s","loginPwd":"e8ZM6a48N3u/niiLrEu+7IfNquDqxglfbJeGE03/GL7LNAFm4e11AEL0BXwh1iYz9mhUnSD3xp7XYaT3GmoQic8xHjnCCwZYZyj+U5X21aKfbw9WOtjIRJ/dLnpm1lEyG+VlDYt35amHNZry3hBvhdz7RzEQULFOn4pYf/8Y5kKbAUiV+lSYA6q6iQqrqlZnoyyCB3RbIy5Z8exnnNMOnxmR7U87bHQ+GIdkh/cO5Q4vGz8QY5PLXTLY85IaLHDkvFtQE9dTFE38wOblp2PtR1Y3/LM+zfKibV4blX5Rjg/nl82izd9gnM5BG71hqCF0xP67gdpV/nPuzrOWrgvBvA==","_channel_id":"30"}}'
 json_data = '{"body":{"birthday":"2018-10-01","company":"四十大盗","companyAddress":"延吉街14号-8-10","companyPhone":"07544563214","contacts":[{"contactAddress":"啊实打实","contactName":"阿达","phone":"18565594511","relation":"R5"},{"contactAddress":"阿达","contactName":"阿达打","phone":"18369895624","relation":"R7"}],"customerName":"厉荷","earns":"50000","education":"L20","homeAddress":"发给分 发飞飞额","homePhone":"11012451245","houseType":"T11","household":"H1","householdAddress":"不知道那个地方","identifyNo":"450902201810015324","identifyType":"T0","marry":"S10","phoneNumber":"11386023421","position":"软件工程师","sex":"G2","workYear":"20","alipay":"","alipayType":"","credit":"","qq":"","taobao":"","webchat":"14541545441","webchatType":"1","remark":"","_channel_id":"30","logonId":"0120171000001451"}}'
 
+
 class AddCuster:
 
     def __init__(self, userid):
@@ -84,7 +85,7 @@ class AddCuster:
         dic_son["customerName"] = name
         dic_son["identifyNo"] = idmsg[0]
         dic["body"] = dic_son
-        return json.dumps(dic, ensure_ascii=False, separators=(',', ':')).encode("utf-8")
+        return json.dumps(dic, ensure_ascii=False).encode("utf-8")
 
     def get_cus_info(self):
         ''' '{"body":{"birthday":"2018-10-01","company":"四十大盗","companyAddress":"延吉街14号-8-10","companyPhone":"07544563214","contacts":[{"contactAddress":"啊实打实","contactName":"阿达","phone":"18565594511","relation":"R5"},{"contactAddress":"阿达","contactName":"阿达打","phone":"18369895624","relation":"R7"}],"customerName":"厉荷","earns":"50000","education":"L20","homeAddress":"发给分 发飞飞额","homePhone":"11012451245","houseType":"T11","household":"H1","householdAddress":"不知道那个地方","identifyNo":"450902201810015324","identifyType":"T0","marry":"S10","phoneNumber":"11386023421","position":"软件工程师","sex":"G2","workYear":"20","alipay":"","alipayType":"","credit":"","qq":"","taobao":"","webchat":"14541545441","webchatType":"1","remark":"","_channel_id":"30","logonId":"0120171000001451"}}' '''
@@ -129,7 +130,8 @@ class AddCuster:
     def get_json_value(self):
         dic_json_value = {}
         dic_json_value["body"] = self.get_cus_info()
-        return json.dumps(dic_json_value, ensure_ascii=False, separators=(',', ':')).encode("utf-8")
+        # separators=(',', ':')参数能进行json的默认，与：后面的空格消除
+        return json.dumps(dic_json_value, ensure_ascii=False).encode("utf-8")
 
     def login(self):
         self.s = requests.Session()
@@ -162,7 +164,7 @@ if __name__ == '__main__':
     add = AddCuster("0120170600000924")
     try:
         add.login()
-        for i in range(10):
+        for i in range(2):
             add.do_add()
     except:
         pass
