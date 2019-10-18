@@ -40,12 +40,14 @@ class RebootBox:
 
     def check_box_from_host(self):
         if self.connect_host() == 1000:
+            log.info("连接服务器IP：" + self.host + "成功！")
             box_list = self.my_ssh_client.execute_some_command('cd /qhapp/apps/lo-boxs/;ls')
             box_list = box_list.split("\n")
             if self.box in box_list:
                 log.info("BOX："+self.box+"在"+self.env+"环境的服务器 "+self.host+"中存在！")
                 return True
             else:
+                self.my_ssh_client.ssh_logout()
                 return False
 
     def execute_reboot_command(self):
@@ -69,12 +71,10 @@ class RebootBox:
                 logs = self.my_ssh_client.execute_some_command(log_command % self.box)
 
     def do_reboot(self):
-        if self.connect_host() == 1000:
-            log.info("连接服务器IP：" + self.host + "成功！")
-            if self.check_box_from_host():
-                self.execute_reboot_command()
-            else:
-                log.warning("BOX不在host中，请参照svn最新的环境信息更新server_host.yaml")
+        if self.check_box_from_host():
+            self.execute_reboot_command()
+        else:
+            log.warning("BOX不在host中，请参照svn最新的环境信息更新server_host.yaml")
 
 
 if __name__ == '__main__':
