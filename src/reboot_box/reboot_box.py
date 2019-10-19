@@ -7,12 +7,13 @@ from time import sleep
 from src.back_money.common.read_yaml import YamlParser
 from src.reboot_box.ssh_client_utils import MySshClient
 from src.utils.log_utils import LogUtils
+import threading
 
 log = LogUtils()
 
 
 class RebootBox:
-    def __init__(self, env, box, del_cache="y"):
+    def __init__(self, th_id, env, box, del_cache="y"):
         ym = YamlParser("server_host", os.getcwd())
         self.env = env
         self.data = ym.get_yaml_data(self.env)
@@ -21,6 +22,7 @@ class RebootBox:
         self.my_ssh_client = MySshClient()
         self.box = box
         self.del_cache = del_cache
+        self.th_id = th_id
 
     def get_host_from_box(self):
         for key in self.data.keys():
@@ -33,18 +35,18 @@ class RebootBox:
     def connect_host(self):
         self.get_host_from_box()
         if self.host:
-            log.info("开始连接"+self.env+"环境的BOX: "+self.box+" ,IP为: "+self.host)
+            log.info(str(self.th_id) + "线程：开始连接" + self.env + "环境的BOX: " + self.box + " ,IP为: " + self.host)
             return self.my_ssh_client.ssh_login(self.host, self.user, self.psd)
         else:
-            log.error("输入的BOX不在对应的环境中或者BOX不存在！")
+            log.error(str(self.th_id) + "线程：输入的BOX不在对应的环境中或者BOX不存在！")
 
     def check_box_from_host(self):
         if self.connect_host() == 1000:
-            log.info("连接服务器IP：" + self.host + "成功！")
+            log.info(str(self.th_id) + "线程：连接服务器IP：" + self.host + "成功！")
             box_list = self.my_ssh_client.execute_some_command('cd /qhapp/apps/lo-boxs/;ls')
             box_list = box_list.split("\n")
             if self.box in box_list:
-                log.info("BOX："+self.box+"在"+self.env+"环境的服务器 "+self.host+"中存在！")
+                log.info(str(self.th_id) + "线程：BOX：" + self.box + "在" + self.env + "环境的服务器 " + self.host + "中存在！")
                 return True
             else:
                 self.my_ssh_client.ssh_logout()
@@ -56,17 +58,17 @@ class RebootBox:
         else:
             command_moudle = 'cd /qhapp/apps/lo-boxs/%s/; sh shutdown-box.sh %s; rm -rf /qhapp/apps/lo-boxs/repository/com/ldygo/zuche-*; ./launch-box.sh ;'
         command = command_moudle % (self.box, self.box)
-        log.info("执行命令："+command)
+        log.info(str(self.th_id) + "线程：执行命令：" + command)
         logs = self.my_ssh_client.execute_some_command(command)
         while True:
             sleep(10)
             if "onAllGearsStarted end" in logs:
                 log.info(logs)
-                log.info("已经完成对"+self.env+"环境的BOX：" + self.box + "的重启！")
+                log.info(str(self.th_id) + "线程：已经完成对" + self.env + "环境的BOX：" + self.box + "的重启！")
                 self.my_ssh_client.ssh_logout()
                 break
             else:
-                log.info("等待重启完成......")
+                log.info(str(self.th_id) + "线程：等待重启完成......")
                 log_command = 'cd /qhapp/apps/lo-boxs/%s/;tail -n 30 boxlogs/lifecycle.log'
                 logs = self.my_ssh_client.execute_some_command(log_command % self.box)
 
@@ -74,10 +76,19 @@ class RebootBox:
         if self.check_box_from_host():
             self.execute_reboot_command()
         else:
-            log.warning("BOX不在host中，请参照svn最新的环境信息更新server_host.yaml")
+            log.warning(str(self.th_id) + "线程：BOX不在host中，请参照svn最新的环境信息更新server_host.yaml")
 
 
 if __name__ == '__main__':
+
+    def thread_reboot(th_id, env_choose, box_name, del_cache):
+        rb = RebootBox(th_id, env_choose, box_name, del_cache)
+        try:
+            rb.do_reboot()
+        except Exception as e:
+            print(e)
+        sleep(1)
+
 
     def do_reboot_box():
         while True:
@@ -87,14 +98,18 @@ if __name__ == '__main__':
                     env_choose = "uat"
                 else:
                     env_choose = "pre"
-                box_name = input("请输入你要重启的BOX名：\n ")
+                box_name = input("请输入你要重启的BOX名：多个BOX请以英文的逗号隔开。\n ")
+                boxlist = box_name.split(",")
                 del_cache = input("是否清除缓存（y/n）输入非n/N的值则默认清除缓存！：\n")
-                rb = RebootBox(env_choose, box_name, del_cache)
-                try:
-                    rb.do_reboot()
-                except Exception as e:
-                    print(e)
-                sleep(1)
+                threads = []
+                nloops = range(len(boxlist))
+                for i in nloops:  # 根据输入的box进行多线程的创建
+                    t = threading.Thread(target=thread_reboot, args=(i, env_choose, boxlist[i], del_cache))
+                    threads.append(t)
+                for i in nloops:  # start threads 此处并不会执行线程，而是将任务分发到每个线程，同步线程。等同步完成后再开始执行start方法
+                    threads[i].start()
+                for i in nloops:  # jion()方法等待线程完成
+                    threads[i].join()
             else:
                 log.warning("用户选择退出！")
                 break
