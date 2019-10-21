@@ -31,7 +31,8 @@ class SeleniumUtils:
         chrome_options.add_argument('--disable-gpu')
         self.driver = webdriver.Chrome(executable_path=path, chrome_options=chrome_options)
         # self.driver = webdriver.Chrome(executable_path=path)
-        self.driver.maximize_window()
+        #self.driver.maximize_window()
+        self.driver.set_window_size(1366, 768)
         self.driver.implicitly_wait(15)
         self.driver.get(url)
 
