@@ -38,7 +38,7 @@ class RebootBox:
             log.info(str(self.th_id) + "线程：开始连接" + self.env + "环境的BOX: " + self.box + " ,IP为: " + self.host)
             return self.my_ssh_client.ssh_login(self.host, self.user, self.psd)
         else:
-            log.error(str(self.th_id) + "线程：输入的BOX不在对应的环境中或者BOX不存在！")
+            log.error(str(self.th_id) + "线程：输入的BOX："+self.box+"不在对应的环境中或者BOX不存在！")
 
     def check_box_from_host(self):
         if self.connect_host() == 1000:
@@ -76,7 +76,7 @@ class RebootBox:
         if self.check_box_from_host():
             self.execute_reboot_command()
         else:
-            log.warning(str(self.th_id) + "线程：BOX不在host中，请参照svn最新的环境信息更新server_host.yaml")
+            log.warning(str(self.th_id) + "线程：BOX："+self.box+"不在host中，请参照svn最新的环境信息更新server_host.yaml")
 
 
 if __name__ == '__main__':
