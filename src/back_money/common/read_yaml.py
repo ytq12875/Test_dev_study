@@ -9,9 +9,9 @@ import yaml
 class YamlParser:
     def __init__(self,file,path):
         if ".yaml" in file:
-            yaml_file = path + "\\" + file
+            yaml_file = path + "/" + file
         else:
-            yaml_file =path + "\\" + file +".yaml"
+            yaml_file =path + "/" + file +".yaml"
         # 打开yaml文件
         # print(yaml_file)
         file1 = codecs.open(yaml_file, 'r')
@@ -19,12 +19,12 @@ class YamlParser:
         file1.close()
 
     def get_yaml_load_all(self):
-        all_data = yaml.load_all(self.file_data, Loader=yaml.FullLoader)
+        all_data = yaml.load_all(self.file_data)
         for data in all_data:
             return data
 
     def get_yaml_data(self,key):
-        all_data = yaml.load_all(self.file_data, Loader=yaml.FullLoader)
+        all_data = yaml.load_all(self.file_data)
         for data in all_data:
             if  key in data.keys():
                 return data[key]
@@ -34,6 +34,6 @@ class YamlParser:
 
 if __name__ == '__main__':
 
-    parser = YamlParser("\\dbconfig",os.path.dirname(os.getcwd())+"\\config")
+    parser = YamlParser("/dbconfig",os.path.dirname(os.getcwd())+"/config")
     print(parser.get_yaml_data("uat_pay_db"))
     # file = "./"

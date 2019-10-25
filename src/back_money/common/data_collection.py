@@ -15,7 +15,7 @@ path = os.path.dirname(path)
 class DataCollection:
 
     def __init__(self):
-        dbfile = path + '\\sqlite_db\\MySqlite.db'
+        dbfile = path + '/sqlite_db/MySqlite.db'
         self.mydb = SqliteUtils(dbfile)
 
     def create_table_data_table(self):

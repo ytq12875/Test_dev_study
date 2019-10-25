@@ -8,7 +8,7 @@ import pymysql
 from src.back_money.common.read_yaml import YamlParser
 
 
-path = os.path.dirname(os.getcwd())+"\\config"
+path = os.path.dirname(os.getcwd())+"/config"
 
 class MysqlConnect(object):
 

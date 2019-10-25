@@ -2,14 +2,13 @@
 # -*- coding:utf-8 -*-
 # __author__ = "Yang Tie Qiao"
 import json
+import os
 from time import sleep
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 
 from src.back_money.common.read_yaml import YamlParser
 from src.utils.log_utils import LogUtils
@@ -20,10 +19,11 @@ log = LogUtils()
 class SeleniumUtils:
 
     def __init__(self, env):
-        env_path = "D:\\Test_dev\\src\\back_money\\config"
+        env_path = os.path.dirname(os.getcwd()) + '/config/'
         user_env_file = YamlParser("user_env", env_path)
         url = user_env_file.get_yaml_data(env).get("url")
-        path = "D:/webdriver/chromedriver.exe"
+        # path = "D:/webdriver/chromedriver.exe"
+        path = "/home/ytq/webdriver/78.0.3904.70/chromedriver"
         # 无头模式
         log.info("进入无头Chrome模式...")
         chrome_options = Options()
@@ -57,7 +57,6 @@ class SeleniumUtils:
         log.info("进行数据：" + value + "的退款操作...")
         self.driver.find_element(By.ID, "jsonArgs").send_keys(value)
         self.driver.find_element(By.CSS_SELECTOR, ".ant-modal-footer .ant-btn.ant-btn-primary.ant-btn-lg").click()
-        # WebDriverWait(self.driver,15).until(EC.invisibility_of_element_located((By.CSS_SELECTOR, ".ant-modal-footer .ant-btn.ant-btn-primary.ant-btn-lg.ant-btn-loading.ant-btn-clicked")))
         sleep(2)
 
     def get_rst(self):

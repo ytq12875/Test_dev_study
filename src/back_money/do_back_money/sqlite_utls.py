@@ -194,7 +194,7 @@ class SqliteUtils:
 
 
 if __name__ == '__main__':
-    dbfile = 'MySqlite.db'
+    dbfile = 'MySqlite'
     mydb = SqliteUtils(dbfile)
     # create_table_sql = '''CREATE TABLE Product1
     #             (
