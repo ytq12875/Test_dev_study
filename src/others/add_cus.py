@@ -13,7 +13,8 @@ from src.utils.random_id_card import RandomIdCard
 log = LogUtils()
 
 add_cus_url = "http://10.91.138.150:53013/zugou-management/gateway/preloan.service.cust.CustService.personalSave"
-login_url = "http://10.91.138.150:53013/zugou-management/gateway/general.service.LoginService.staffLogin"
+# login_url = "http://10.91.138.150:53013/zugou-management/gateway/general.service.LoginService.staffLogin"
+login_url = "http://http://10.90.136.105:23024//zugou-management/gateway/general.service.LoginService.staffLogin"
 check_url = 'http://10.91.138.150:53013/zugou-management/gateway/preloan.service.cust.CustService.personalExist'
 headers = {"Content-Type": "application/json;charset=utf-8"}
 login_data = '{"body":{"userName":"%s","loginPwd":"e8ZM6a48N3u/niiLrEu+7IfNquDqxglfbJeGE03/GL7LNAFm4e11AEL0BXwh1iYz9mhUnSD3xp7XYaT3GmoQic8xHjnCCwZYZyj+U5X21aKfbw9WOtjIRJ/dLnpm1lEyG+VlDYt35amHNZry3hBvhdz7RzEQULFOn4pYf/8Y5kKbAUiV+lSYA6q6iQqrqlZnoyyCB3RbIy5Z8exnnNMOnxmR7U87bHQ+GIdkh/cO5Q4vGz8QY5PLXTLY85IaLHDkvFtQE9dTFE38wOblp2PtR1Y3/LM+zfKibV4blX5Rjg/nl82izd9gnM5BG71hqCF0xP67gdpV/nPuzrOWrgvBvA==","_channel_id":"30"}}'
@@ -135,12 +136,18 @@ class AddCuster:
 
     def login(self):
         self.s = requests.Session()
-        ret = self.s.request('POST', url=login_url, data=login_data % self.use_id, headers=headers)
-        if ret.json()["responseCode"] == "000000":
-            log.info("用户登录成功。")
-        else:
-            log.error(ret.json())
-            log.warning("用户登录失败！")
+        try:
+            ret = self.s.request('POST', url=login_url, data=login_data % self.use_id, headers=headers)
+            if ret.status_code == '200':
+                if ret.json()["responseCode"] == "000000":
+                    log.info("用户登录成功。")
+                else:
+                    log.error(ret.json())
+                    log.warning("用户登录失败！")
+            else:
+                log.info("请求失败了：" + ret.status_code)
+        except Exception as err:
+            raise LoginException("Login failure,because: "+str(err))
 
     def do_add(self):
         do_json_value = self.get_json_value()
@@ -159,6 +166,11 @@ class AddCuster:
         return self.s.request('POST', url=url, data=data, headers=headers)
 
 
+class LoginException(Exception):
+    def __init__(self,msg):
+        self.msg = msg
+
+
 if __name__ == '__main__':
     # 0120170600000924,0120171000001451
     add = AddCuster("0120170600000924")
@@ -166,5 +178,5 @@ if __name__ == '__main__':
         add.login()
         for i in range(2):
             add.do_add()
-    except:
-        pass
+    except Exception as e:
+        log.error(e)

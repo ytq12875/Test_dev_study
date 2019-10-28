@@ -7,7 +7,8 @@ from selenium import webdriver
 
 
 class PageDriver:
-    _path = "D:/webdriver/chromedriver.exe"
+    # _path = "D:/webdriver/chromedriver.exe"
+    _path = "/home/ytq/webdriver/78.0.3904.70/chromedriver"
     _com_url = "https://work.weixin.qq.com/wework_admin/frame#contacts"
     _cookies = {
         "wwrtx.d2st": "a2218798",

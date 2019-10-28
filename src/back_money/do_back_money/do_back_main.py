@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 # __author__ = "Yang Tie Qiao"
 import json
+import os
 
 from src.back_money.common.data_collection import DataCollection
 from src.back_money.do_back_money.selenium_utils import SeleniumUtils
@@ -10,6 +11,8 @@ from src.utils.log_utils import LogUtils
 from src.utils.mysql_connect_utils import MysqlConnect
 
 log = LogUtils()
+
+path = os.path.dirname(os.getcwd()) + "/config"
 
 
 class DoBackMoney:
@@ -26,7 +29,7 @@ class DoBackMoney:
         else:
             _sql = "select bsm_jnl_no, cap_channel_no from pcenter.pay_consume_jnl where pay_order_no in (select pay_order_no from pcenter.pay_consume_order where cust_no = '%s')"
             get_value_sql = _sql % (cust_no)
-        db = MysqlConnect(db_env)
+        db = MysqlConnect(db_env, path)
         log.info("服务器数据库执行sql：" + get_value_sql)
         rst = db.doSelect(get_value_sql)
         if len(rst) > 0:

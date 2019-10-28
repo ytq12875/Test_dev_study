@@ -7,13 +7,13 @@ import pymysql
 
 from src.back_money.common.read_yaml import YamlParser
 
+path = os.path.dirname(os.getcwd()) + "/back_money/config"
 
-path = os.path.dirname(os.getcwd())+"/config"
 
 class MysqlConnect(object):
 
-    def __init__(self,db,schema = None):
-        dbconfig_file = YamlParser("dbconfig",path)
+    def __init__(self, db, give_path, schema=None):
+        dbconfig_file = YamlParser("dbconfig", give_path)
         config = dbconfig_file.get_yaml_data(db)
         self.host = config.get("host")
         self.port = config.get("port")
@@ -24,12 +24,12 @@ class MysqlConnect(object):
     def doConnect(self):
         """获取数据库连接"""
         connect = pymysql.Connect(
-            host = self.host,
-            port = int(self.port),
-            user = self.user,
-            passwd = self.passwd,
-            db = self.schema,
-            charset = 'utf8'
+            host=self.host,
+            port=int(self.port),
+            user=self.user,
+            passwd=self.passwd,
+            db=self.schema,
+            charset='utf8'
         )
         return connect
 
@@ -68,7 +68,9 @@ class MysqlConnect(object):
         conn.close()
         return flag
 
+
 if __name__ == '__main__':
     mc = MysqlConnect("uat_pay_db")
-    rst = mc.doSelect("select bsm_jnl_no,cap_channel_no from pcenter.pay_consume_jnl where cust_no = '30020190802003752'")
+    rst = mc.doSelect(
+        "select bsm_jnl_no,cap_channel_no from pcenter.pay_consume_jnl where cust_no = '30020190802003752'")
     print(rst)

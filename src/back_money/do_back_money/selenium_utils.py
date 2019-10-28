@@ -26,14 +26,14 @@ class SeleniumUtils:
         path = "/home/ytq/webdriver/78.0.3904.70/chromedriver"
         # 无头模式
         log.info("进入无头Chrome模式...")
-        chrome_options = Options()
-        chrome_options.add_argument('--headless')
-        chrome_options.add_argument('--disable-gpu')
-        self.driver = webdriver.Chrome(executable_path=path, chrome_options=chrome_options)
-        # self.driver = webdriver.Chrome(executable_path=path)
-        #self.driver.maximize_window()
-        self.driver.set_window_size(1366, 768)
-        self.driver.implicitly_wait(15)
+        # chrome_options = Options()
+        # chrome_options.add_argument('--headless')
+        # chrome_options.add_argument('--disable-gpu')
+        # self.driver = webdriver.Chrome(executable_path=path, chrome_options=chrome_options)
+        self.driver = webdriver.Chrome(executable_path=path)
+        self.driver.maximize_window()
+        # self.driver.set_window_size(1366, 768)
+        self.driver.implicitly_wait(30)
         self.driver.get(url)
 
     def login(self, user, psw):

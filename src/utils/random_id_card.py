@@ -10,7 +10,7 @@ class RandomIdCard:
 
     def __init__(self):
         cur_path = os.getcwd()
-        rootPath = cur_path[:cur_path.find("Test_dev\\") + len("Test_dev\\")]
+        rootPath = cur_path[:cur_path.find("Test_dev_study/") + len("Test_dev_study/")]
         csv_path = rootPath + "/src/utils/area.csv"
         self.filename = csv_path
     # 功能：从csv文件中读取一个区域编码字典
@@ -19,7 +19,7 @@ class RandomIdCard:
         dataDict = {}
         key = 0
         value = 1
-        dataLine = open(self.filename).read().splitlines()
+        dataLine = open(self.filename,encoding='GBK').read().splitlines()
         for line in dataLine:
             tmpLst = line.split(",")
             dataDict[tmpLst[key]] = tmpLst[value]
