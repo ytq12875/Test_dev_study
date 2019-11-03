@@ -15,7 +15,7 @@ class TestSeleniumEx:
 
     # 初始化，制定驱动路径并最大化浏览器和设置隐式等待
     def setup_method(self):
-        path = "D:/webdriver/chromedriver.exe"
+        path = "/home/ytq/webdriver/78.0.3904.70/chromedriver"
         self.driver = webdriver.Chrome(path)
         self.driver.get("https://testerhome.com/")
         self.driver.maximize_window()
