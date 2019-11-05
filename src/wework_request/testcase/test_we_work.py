@@ -13,6 +13,6 @@ class TestWeWork:
 
     def test_get_token(self):
         fo = WeWork()
-        token = fo.get_token()
+        token = fo.get_token("","")
         log.info(token)
         assert token is not None

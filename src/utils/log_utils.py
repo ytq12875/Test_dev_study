@@ -4,6 +4,7 @@
 
 import logging
 import os
+import sys
 import time
 
 
@@ -16,8 +17,8 @@ class LogUtils(object):
     # 在这里定义StreamHandler，可以实现单例， 所有的logger()共用一个StreamHandler
     ch = logging.StreamHandler()
 
-    def __init__(self,level = logging.INFO):
-        self.logger = logging.getLogger()
+    def __init__(self,level = logging.INFO, name = ""):
+        self.logger = logging.getLogger(name)
         if not self.logger.handlers:
             # 如果self.logger没有handler， 就执行以下代码添加handler
             self.logger.setLevel(level)
@@ -32,7 +33,7 @@ class LogUtils(object):
             fh.setLevel(logging.DEBUG)
 
             # 定义handler的输出格式
-            formatter = logging.Formatter('[%(asctime)s] - [%(levelname)s] - %(message)s')
+            formatter = logging.Formatter('[%(asctime)s] -[%(name)s]- [%(levelname)s] - %(message)s')
             fh.setFormatter(formatter)
 
             # 给logger添加handler
@@ -60,7 +61,7 @@ class LogUtils(object):
 
     def fontColor(self, color):
         # 不同的日志输出不同的颜色
-        formatter = logging.Formatter(color % '[%(asctime)s] - [%(levelname)s] - %(message)s')
+        formatter = logging.Formatter(color % '[%(asctime)s] - [%(name)s] - [%(levelname)s] - %(message)s')
         self.ch.setFormatter(formatter)
         self.logger.addHandler(self.ch)
 

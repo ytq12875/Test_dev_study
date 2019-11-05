@@ -3,23 +3,19 @@
 # @Author  : YTQ
 # @FileName: wework.py
 # @Software: PyCharm
-import requests
+
+from src.wework_request.api.base_api import BaseApi
 
 
-class WeWork:
-    access_token = None
-    corpid = "ww75abb8519b57cec6"
-    conct_secret = "vvavK-3lew1LhtP2sLdfkieOEe8CJy5hJpdJ2ceKiEI"
+class WeWork(BaseApi):
 
     def __init__(self):
-        pass
+        super().__init__()
+        self.get_token_url = self.url + self.ur.get_api("wework","token")
 
-    def get_token(self, corpid=None, corpsecret=None):
-        url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken"
-        if self.access_token is None and corpid is None and corpsecret is None:
-            r = requests.get(url, params={"corpid": self.corpid, "corpsecret": self.conct_secret}).json()
-            self.access_token = r["access_token"]
-        elif self.access_token is None and corpid and corpsecret:
-            r = requests.get(url, params={"corpid": corpid, "corpsecret": corpsecret}).json()
-            self.access_token = r["access_token"]
+    def get_token(self, corpid, corpsecret):
+        self.set_request_method(mode="http",method="get")
+        self.set_url_params(corpid=corpid,corpsecret=corpsecret)
+        r = self.do_request(self.get_token_url).json()
+        self.access_token = r["access_token"]
         return self.access_token
