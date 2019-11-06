@@ -70,3 +70,44 @@ class Member(BaseApi):
         ret = self.do_request(self.del_url).json()
         log.info(ret)
         return ret
+
+    def del_member_batch(self,user_list):
+        self.set_request_method(mode="http", method="post")
+        self.set_url_params(access_token=self.access_token)
+        will_del_batch ={}
+        will_del_batch["useridlist"] = user_list
+        ret = self.do_request(self.del_batch_url,data=will_del_batch).json()
+        log.info(ret)
+        return ret
+
+    def get_department_member_simple(self,department_id,fetch_child = "0"):
+        self.set_request_method(mode="http", method="get")
+        self.set_url_params(access_token=self.access_token, department_id=department_id,fetch_child = fetch_child)
+        ret = self.do_request(self.list_simple_url).json()
+        log.info(ret)
+        return ret
+
+    def get_department_member_details(self,department_id,fetch_child = "0"):
+        self.set_request_method(mode="http", method="get")
+        self.set_url_params(access_token=self.access_token, department_id=department_id,fetch_child = fetch_child)
+        ret = self.do_request(self.list_details_url).json()
+        log.info(ret)
+        return ret
+
+    def userid_to_openid(self,userid):
+        self.set_request_method(mode="http", method="post")
+        self.set_url_params(access_token=self.access_token)
+        will_chage_user={}
+        will_chage_user["userid"] = userid
+        ret = self.do_request(self.use2open_url,data=will_chage_user).json()
+        log.info(ret)
+        return ret
+
+    def openid_to_userid(self,openid):
+        self.set_request_method(mode="http", method="post")
+        self.set_url_params(access_token=self.access_token)
+        will_chage_user={}
+        will_chage_user["openid"] = openid
+        ret = self.do_request(self.open2use_url,data=will_chage_user).json()
+        log.info(ret)
+        return ret
