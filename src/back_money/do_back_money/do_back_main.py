@@ -19,7 +19,6 @@ class DoBackMoney:
 
     def __init__(self):
         self.mydb = DataCollection()
-        pass
 
     def get_all_back_value(self, cust_no, db_env, date=None):
         log.info("从服务器数据库中查询给定条件的退款数据...")
@@ -112,14 +111,14 @@ class DoBackMoney:
         else:
             log.error("没有输入需要退还的数据！")
 
-    def do_back_money(self, user="testUser", psw="1234abcd"):
+    def do_back_money(self):
         try:
             db_env, user_env, cust_no = self.get_user_input()
             try:
                 json_list = self.make_json_list(db_env, cust_no)
                 if json_list:
                     _selenium = SeleniumUtils(user_env)
-                    rtn_json_list = _selenium.do_selenium(user, psw, json_list)
+                    rtn_json_list = _selenium.do_selenium(json_list)
                     self.update_stutus(rtn_json_list, db_env)
             except:
                 log.warning("无可退还的支付数据或组装json数据出现了问题！")

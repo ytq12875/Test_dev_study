@@ -21,23 +21,26 @@ class SeleniumUtils:
     def __init__(self, env):
         env_path = os.path.dirname(os.getcwd()) + '/config/'
         user_env_file = YamlParser("user_env", env_path)
+        user_file = YamlParser("login", env_path)
         url = user_env_file.get_yaml_data(env).get("url")
+        self.user = user_file.get_yaml_data(env).get("login_name")
+        self.psw = user_file.get_yaml_data(env).get("login_psw")
         # path = "D:/webdriver/chromedriver.exe"
         path = "/home/ytq/webdriver/78.0.3904.70/chromedriver"
         # 无头模式
         log.info("进入无头Chrome模式...")
-        # chrome_options = Options()
-        # chrome_options.add_argument('--headless')
-        # chrome_options.add_argument('--disable-gpu')
-        # self.driver = webdriver.Chrome(executable_path=path, chrome_options=chrome_options)
-        self.driver = webdriver.Chrome(executable_path=path)
-        self.driver.maximize_window()
-        # self.driver.set_window_size(1366, 768)
+        chrome_options = Options()
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--disable-gpu')
+        self.driver = webdriver.Chrome(executable_path=path, chrome_options=chrome_options)
+        # self.driver = webdriver.Chrome(executable_path=path)
+        # self.driver.maximize_window()
+        self.driver.set_window_size(1366, 768)
         self.driver.implicitly_wait(30)
         self.driver.get(url)
 
     def login(self, user, psw):
-        log.info("使用用户：" + user + "进行登录...")
+        log.info("用户登录中...")
         self.driver.find_element(By.ID, "loginName").send_keys(user)
         self.driver.find_element(By.ID, "loginPwd").send_keys(psw)
         self.driver.find_element(By.CSS_SELECTOR, ".ant-btn-lg").click()
@@ -71,9 +74,9 @@ class SeleniumUtils:
     def quit_driver(self):
         self.driver.quit()
 
-    def do_selenium(self, user, psw, json_list):
+    def do_selenium(self, json_list):
         try:
-            self.login(user, psw)
+            self.login(self.user, self.psw)
             self.goto_service()
             rtn_json_list = []
             for json_value in json_list:
@@ -89,8 +92,6 @@ class SeleniumUtils:
 
 if __name__ == '__main__':
     sel = SeleniumUtils("uat")
-    user = "testUser"
-    psw = "1234abcd"
     json_list = ['{"payChannelNo": "1002","bsmJnlNo": "100220190827144849ST90100367"}',
                  '{"payChannelNo": "1002","bsmJnlNo": "100220190827144229ST90100357"}']
-    sel.do_selenium(user, psw, json_list)
+    sel.do_selenium(json_list)
