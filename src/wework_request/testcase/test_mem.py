@@ -16,7 +16,7 @@ class TestMem:
     def setup_class(self):
         self.mem = Member()
 
-    @pytest.mark.parametrize("userid,username,department,mobile,email",[("Aaaaaaaaaaa8","王麻子1","4","13800000007","")])
+    @pytest.mark.parametrize("userid,username,department,mobile,email",[("Aaaaaaaaaaa9","王麻子2","4","13800000008","")])
     def test_add_member(self,userid,username,department,mobile,email):
         ret = self.mem.add_member(userid,username,department,mobile=mobile,email= email)
         assert ret["errcode"] == 0

@@ -13,18 +13,17 @@ class YamlParser:
         else:
             yaml_file =path + "/" + file +".yaml"
         # 打开yaml文件
-        # print(yaml_file)
-        file1 = codecs.open(yaml_file, 'r')
+        file1 = codecs.open(yaml_file, 'r',encoding='utf-8')
         self.file_data = file1.read()
         file1.close()
 
     def get_yaml_load_all(self):
-        all_data = yaml.load_all(self.file_data)
+        all_data = yaml.load_all(self.file_data,Loader=yaml.FullLoader)
         for data in all_data:
             return data
 
     def get_yaml_data(self,key):
-        all_data = yaml.load_all(self.file_data)
+        all_data = yaml.load_all(self.file_data,Loader=yaml.FullLoader)
         for data in all_data:
             if  key in data.keys():
                 return data[key]

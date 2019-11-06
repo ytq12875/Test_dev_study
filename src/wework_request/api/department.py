@@ -20,6 +20,7 @@ class Department(BaseApi):
         self.list_url = self.url + self.ur.get_api_by_parent("dpt_list", self.dpt)
         self.add_url = self.url + self.ur.get_api_by_parent("dpt_create", self.dpt)
         self.del_url = self.url + self.ur.get_api_by_parent("dpt_del", self.dpt)
+        self.update_url = self.url + self.ur.get_api_by_parent("dpt_update", self.dpt)
 
     def department_list(self,_id = None):
         self.set_request_method(mode="http", method="get")
@@ -43,5 +44,17 @@ class Department(BaseApi):
         self.set_request_method(mode="http", method="get")
         self.set_url_params(access_token = self.access_token,id=_id)
         ret = self.do_request(self.del_url).json()
+        log.info(ret)
+        return ret
+
+    def update_department(self,name,parentid,order,_id):
+        self.set_request_method(mode="http", method="post")
+        self.set_url_params(access_token = self.access_token)
+        dic = {}
+        dic["name"] = name
+        dic["parentid"] = parentid
+        dic["order"] = order
+        dic["id"] = _id
+        ret = self.do_request(self.update_url,data=dic).json()
         log.info(ret)
         return ret
