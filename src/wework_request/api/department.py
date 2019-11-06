@@ -3,9 +3,6 @@
 # @Author  : YTQ
 # @FileName: department.py
 # @Software: PyCharm
-import json
-
-import requests
 
 from src.utils.log_utils import LogUtils
 from src.wework_request.api.base_api import BaseApi
@@ -38,7 +35,7 @@ class Department(BaseApi):
         dic["parentid"] = parentid
         dic["order"] = order
         dic["id"] = _id
-        ret = self.do_request(self.add_url,data=json.dumps(dic)).json()
+        ret = self.do_request(self.add_url,data=dic).json()
         log.info(ret)
         return ret
 
@@ -46,4 +43,5 @@ class Department(BaseApi):
         self.set_request_method(mode="http", method="get")
         self.set_url_params(access_token = self.access_token,id=_id)
         ret = self.do_request(self.del_url).json()
+        log.info(ret)
         return ret

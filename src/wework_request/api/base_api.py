@@ -3,6 +3,8 @@
 # @Author  : YTQ
 # @FileName: base_api.py
 # @Software: PyCharm
+import json
+
 import requests
 
 from src.utils.log_utils import LogUtils
@@ -30,7 +32,7 @@ class BaseApi:
     def do_request(self,url,data =None):
         if self.mode == "http":
             if self.method:
-                ret = requests.request(self.method, url= url,params=self.params,data =data, headers = self.headers)
+                ret = requests.request(self.method, url= url,params=self.params,data =json.dumps(data,ensure_ascii=False).encode('utf-8'), headers = self.headers)
                 return ret
             else:
                 log.error("http通讯方式method不能为空！")

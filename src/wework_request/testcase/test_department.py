@@ -3,6 +3,8 @@
 # @Author  : YTQ
 # @FileName: test_department.py
 # @Software: PyCharm
+import pytest
+
 from src.utils.log_utils import LogUtils
 from src.wework_request.api.department import Department
 
@@ -13,14 +15,15 @@ class TestDepartment:
     def setup_class(self):
         self.dp = Department()
 
-    def test_add_department(self):
-        ret = self.dp.add_department("测试添加8","1","10","40")
-        log.info(ret)
+    @pytest.mark.parametrize("dpt_name,parentid,order,_id", [("测试添加8","1","10","40")])
+    def test_add_department(self,dpt_name,parentid,order,_id):
+        ret = self.dp.add_department(dpt_name,parentid,order,_id)
         assert ret["errcode"] == 0
 
 
-    def test_del_department(self):
-        add_ret =self.dp.add_department("测试添加4","1","10","36")
+    @pytest.mark.parametrize("dpt_name,parentid,order,_id",[("测试添加4","1","10","36")])
+    def test_del_department(self,dpt_name,parentid,order,_id):
+        add_ret =self.dp.add_department(dpt_name,parentid,order,_id)
         if add_ret["errcode"] == 0:
             dp_id = add_ret["id"]
             ret = self.dp.del_department(dp_id)
