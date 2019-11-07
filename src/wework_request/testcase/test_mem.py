@@ -62,3 +62,13 @@ class TestMem:
     def test_openid_to_userid(self,openid):
         ret = self.mem.openid_to_userid(openid)
         assert ret["errcode"] == 0
+
+    @pytest.mark.parametrize("user_list,party_list,tag_list", [(["Aaaaaaaaaaaa"],[""],[""]),(["Aaaaaaaaaaaa"],[2,3],[""])])
+    def test_invite_member(self, user_list,party_list,tag_list):
+        ret = self.mem.invite_member(user_list,party_list,tag_list)
+        assert ret["errcode"] == 0
+
+    @pytest.mark.parametrize("size",[1,2,3,4])
+    def test_get_qrcode(self, size):
+        ret = self.mem.get_qrcode(size)
+        assert ret["errcode"] == 0

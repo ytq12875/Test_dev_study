@@ -32,3 +32,5 @@ class TestDepartment:
             dp_id = add_ret["id"]
             ret = self.dp.del_department(dp_id)
             assert ret["errcode"] == 0
+        else:
+            log.error("部门新增失败！")

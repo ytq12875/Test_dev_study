@@ -71,7 +71,7 @@ class Member(BaseApi):
         log.info(ret)
         return ret
 
-    def del_member_batch(self,user_list):
+    def del_member_batch(self,user_list:list):
         self.set_request_method(mode="http", method="post")
         self.set_url_params(access_token=self.access_token)
         will_del_batch ={}
@@ -109,5 +109,23 @@ class Member(BaseApi):
         will_chage_user={}
         will_chage_user["openid"] = openid
         ret = self.do_request(self.open2use_url,data=will_chage_user).json()
+        log.info(ret)
+        return ret
+
+    def invite_member(self,user_list:list,party_list:list,tag_list:list):
+        self.set_request_method(mode="http", method="post")
+        self.set_url_params(access_token=self.access_token)
+        invite_dic ={}
+        invite_dic["user"] = user_list
+        invite_dic["party"] = party_list
+        invite_dic["tag"] = tag_list
+        ret = self.do_request(self.invite_url, data=invite_dic).json()
+        log.info(ret)
+        return ret
+
+    def get_qrcode(self,size):
+        self.set_request_method(mode="http", method="get")
+        self.set_url_params(access_token=self.access_token, size_type=size)
+        ret = self.do_request(self.qrcode_url).json()
         log.info(ret)
         return ret
