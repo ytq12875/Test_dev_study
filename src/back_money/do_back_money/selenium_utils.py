@@ -81,8 +81,19 @@ class SeleniumUtils:
             rtn_json_list = []
             for json_value in json_list:
                 self.set_value_for_back(json_value)
-                new_json = json.dumps({**json.loads(json_value), **{"rtn_msg": self.get_rst()}})
-                rtn_json_list.append(new_json)
+                retry = 0
+                while retry < 10:
+                    rtn = self.get_rst()
+                    if rtn:
+                        new_json = json.dumps({**json.loads(json_value), **{"rtn_msg": rtn}})
+                        rtn_json_list.append(new_json)
+                        break
+                    elif retry < 10:
+                        log.info("等待退款结果返回！")
+                        sleep(1)
+                        retry +=1
+                    else:
+                        log.error("10秒未得到返回,请重试！")
             return rtn_json_list
         except Exception as e:
             print(e)

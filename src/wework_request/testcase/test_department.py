@@ -3,6 +3,8 @@
 # @Author  : YTQ
 # @FileName: test_department.py
 # @Software: PyCharm
+import os
+
 import pytest
 
 from src.utils.log_utils import LogUtils
@@ -34,3 +36,9 @@ class TestDepartment:
             assert ret["errcode"] == 0
         else:
             log.error("部门新增失败！")
+
+if __name__ == '__main__':
+    pytest.main("--alluredir=test_result/allureReports")
+    # pytest.main(['-s', '-q', '--alluredir', './report/xml/'])
+    # rep_cmd = "allure generate report/xml -o report/html"
+    # os.system(rep_cmd)
