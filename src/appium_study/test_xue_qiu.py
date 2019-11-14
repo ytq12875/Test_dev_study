@@ -15,8 +15,8 @@ class TestXueQiu:
         # app启动参数
         desired_caps = {}
         desired_caps["platformName"] = "Android"
-        desired_caps["platformVersion"] = "6.0.1"
-        desired_caps["deviceName"] = "127.0.0.1:7555"
+        desired_caps["platformVersion"] = "9.0.0"
+        desired_caps["deviceName"] = "55057881"
         desired_caps["appPackage"] = "com.xueqiu.android"
         desired_caps["appActivity"] = ".view.WelcomeActivityAlias"
         desired_caps["autoGrantPermissions"] = True

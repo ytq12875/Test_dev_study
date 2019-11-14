@@ -6,17 +6,17 @@ import os
 from time import sleep
 
 import pytest
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+
+from src.my_driver import browser
 
 
 class TestSeleniumEx:
 
     # 初始化，制定驱动路径并最大化浏览器和设置隐式等待
     def setup_method(self):
-        path = "/home/ytq/webdriver/78.0.3904.70/chromedriver"
-        self.driver = webdriver.Chrome(path)
+        self.driver = browser("chrome")
         self.driver.get("https://testerhome.com/")
         self.driver.maximize_window()
         self.driver.implicitly_wait(5)
