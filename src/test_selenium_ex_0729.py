@@ -10,12 +10,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 from src.my_driver import browser
+from src.utils.log_utils import LogUtils
 
-
+log = LogUtils()
 class TestSeleniumEx:
 
     # 初始化，制定驱动路径并最大化浏览器和设置隐式等待
     def setup_method(self):
+        log.info("初始化chrome：")
         self.driver = browser("chrome")
         self.driver.get("https://testerhome.com/")
         self.driver.maximize_window()
@@ -23,6 +25,7 @@ class TestSeleniumEx:
 
     # 清理，关闭驱动
     def teardown_method(self):
+        log.info("退出driver......")
         self.driver.quit()
 
     # 进入社区，测试查看最新发布的第一个帖子
