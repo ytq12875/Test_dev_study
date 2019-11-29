@@ -47,15 +47,17 @@ class MysqlConnect(object):
             else:
                 cur.execute(sql)
             result = cur.fetchall()
+            return result
         except Exception as msg:
             print(msg)
+            return msg
         finally:
             cur.close()
             self.doClose()
-        return result
 
-    # 删除
-    def doDelete(self, sql, cond):
+
+    # 增删改
+    def doChange(self, sql, cond):
         flag = 0
         conn = self.doConnect()
         cur = conn.cursor()
@@ -63,14 +65,18 @@ class MysqlConnect(object):
             cur.execute(sql % cond)
             conn.commit()
             flag = 1
-        except:
+            return flag
+        except Exception as msg:
             conn.rollback()
-        conn.close()
-        return flag
+            return msg
+        finally:
+            cur.close()
+            self.doClose()
+
 
 
 if __name__ == '__main__':
-    mc = MysqlConnect("uat_pay_db")
+    mc = MysqlConnect("uat_pay_db",path)
     rst = mc.doSelect(
         "select bsm_jnl_no,cap_channel_no from pcenter.pay_consume_jnl where cust_no = '30020190802003752'")
     print(rst)

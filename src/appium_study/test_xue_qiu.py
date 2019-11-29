@@ -15,11 +15,13 @@ class TestXueQiu:
         # app启动参数
         desired_caps = {}
         desired_caps["platformName"] = "Android"
-        desired_caps["platformVersion"] = "9.0.0"
-        desired_caps["deviceName"] = "55057881"
+        desired_caps["platformVersion"] = "7.1.2"
+        desired_caps["deviceName"] = "10.170.45.70:5555"
         desired_caps["appPackage"] = "com.xueqiu.android"
         desired_caps["appActivity"] = ".view.WelcomeActivityAlias"
         desired_caps["autoGrantPermissions"] = True
+        # desired_caps["skipServerInstallation"] = True
+        # desired_caps["skipDeviceInitialization"] = True
         # 驱动
         self.driver = webdriver.Remote(server, desired_caps)
         self.driver.implicitly_wait(15)

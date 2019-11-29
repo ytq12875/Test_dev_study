@@ -109,7 +109,7 @@ class DoBackMoney:
             db_env = "uat_pay_db"
         elif env == 'pre':
             user_env = "pre"
-            db_env = "pre_db"
+            db_env = "pre_pay_db"
         else:
             user_env = "ex"
             db_env = "ex_db"

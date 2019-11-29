@@ -28,7 +28,7 @@ class MySshClient():
             return 1002
         except:
             log.warning('unknow error')
-            log.warning("Unexpected error:", sys.exc_info()[0])
+            log.warning("Unexpected error:"+sys.exc_info()[0])
             return 1003
         return 1000
 

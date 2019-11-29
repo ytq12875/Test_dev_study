@@ -97,7 +97,7 @@ class DoBackMoney:
                         db_env = "uat_pay_db"
                     elif env == 'pre':
                         user_env = "pre"
-                        db_env = "pre_db"
+                        db_env = "pre_pay_db"
                     else:
                         user_env = "ex"
                         db_env = "ex_db"
@@ -131,7 +131,7 @@ if __name__ == '__main__':
     '''
     user_env = "uat"
     cust_no = "30020190802004051"
-    cust_no = "30020190802003752"
+    cust_no = "30020191102033004"
     user_env = "pre"
     cust_no = "30020190800470254"
     date = "20190904"

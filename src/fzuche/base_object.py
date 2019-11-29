@@ -36,6 +36,7 @@ class BaseObject:
 
     def get_element(self, selector):
         selector_tuple = self._get_ele_selector(selector)
+        self.driver_wait_vist(selector)
         el = self.driver.find_element(*selector_tuple)
         if el:
             self.log.info("通过" + selector_tuple[0] + "方式定位元素：" + selector_tuple[1] + "成功")

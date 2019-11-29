@@ -24,6 +24,11 @@ class CommonStr:
         str_time = now_time.strftime("%Y-%m-%d %X")
         return str_time
 
+    def replace_char(self, string, char, index):
+        string1 = list(string)
+        string1[index] = char
+        return ''.join(string1)
+
 if __name__ == '__main__':
     com = CommonStr()
     com.get_time_vale()
