@@ -37,13 +37,13 @@ class MysqlConnect(object):
         """关闭数据库连接"""
         self.doConnect().close()
 
-    def doSelect(self, sql, condition:tuple=None):
+    def doSelect(self, sql, condition=None):
         """查询"""
         try:
             conn = self.doConnect()
             cur = conn.cursor()
             if condition:
-                cur.execute(sql,condition)
+                cur.execute(sql % condition)
             else:
                 cur.execute(sql)
             result = cur.fetchall()
@@ -55,14 +55,13 @@ class MysqlConnect(object):
             cur.close()
             self.doClose()
 
-
     # 增删改
     def doChange(self, sql, cond):
         flag = 0
         conn = self.doConnect()
         cur = conn.cursor()
         try:
-            cur.execute(sql,cond)
+            cur.execute(sql % cond)
             conn.commit()
             flag = 1
             return flag
@@ -74,13 +73,12 @@ class MysqlConnect(object):
             self.doClose()
 
 
-
 if __name__ == '__main__':
-    mc = MysqlConnect("uat_pay_db",path)
+    mc = MysqlConnect("uat_pay_db", path)
     sql_moude = ''' select bsm_jnl_no, cap_channel_no from pcenter.pay_consume_jnl where pay_order_no in (select pay_order_no from pcenter.pay_consume_order where cust_no = '%s') and biz_no not like 'TK%%'  '''
     sql_moude1 = ''' select bsm_jnl_no, cap_channel_no from pcenter.pay_consume_jnl where pay_order_no in (select pay_order_no from pcenter.pay_consume_order where cust_no = '%s') and biz_no not like 'TK_'  '''
-    sql = sql_moude % ("30020191102033004")
-    sql1 = sql_moude1 % ("30020191102033004")
+    sql = sql_moude % "30020191102033004"
+    sql1 = sql_moude1 % "30020191102033004"
     rst = mc.doSelect(sql)
     rst1 = mc.doSelect(sql1)
     print(rst)
