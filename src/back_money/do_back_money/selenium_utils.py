@@ -96,7 +96,7 @@ class SeleniumUtils:
                         log.error("10秒未得到返回,请重试！")
             return rtn_json_list
         except Exception as e:
-            print(e)
+            log.error("退款操作发生了异常"+str(e))
         finally:
             self.quit_driver()
 

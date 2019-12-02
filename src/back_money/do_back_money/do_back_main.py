@@ -23,10 +23,10 @@ class DoBackMoney:
     def get_all_back_value(self, cust_no, db_env, date=None):
         log.info("从服务器数据库中查询给定条件的退款数据...")
         if date:
-            _sql = "select bsm_jnl_no, cap_channel_no from pcenter.pay_consume_jnl where pay_order_no in (select pay_order_no from pcenter.pay_consume_order where cust_no = '%s' and order_date ='%s')"
+            _sql = "select bsm_jnl_no, cap_channel_no from pcenter.pay_consume_jnl where pay_order_no in (select pay_order_no from pcenter.pay_consume_order where cust_no = '%s' and order_date ='%s') and biz_no not like 'TK%%'"
             get_value_sql = _sql % (cust_no, date)
         else:
-            _sql = "select bsm_jnl_no, cap_channel_no from pcenter.pay_consume_jnl where pay_order_no in (select pay_order_no from pcenter.pay_consume_order where cust_no = '%s')"
+            _sql = "select bsm_jnl_no, cap_channel_no from pcenter.pay_consume_jnl where pay_order_no in (select pay_order_no from pcenter.pay_consume_order where cust_no = '%s') and biz_no not like 'TK%%' "
             get_value_sql = _sql % (cust_no)
         db = MysqlConnect(db_env, path)
         log.info("服务器数据库执行sql：" + get_value_sql)
