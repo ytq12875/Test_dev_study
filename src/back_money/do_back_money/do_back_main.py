@@ -61,12 +61,16 @@ class DoBackMoney:
     "bsmJnlNo": "100220190913174841ST90100625"
     }   '''
         rtn_list = []
-        for value in self.mydb.fetchall(db_env, cus_no):
-            dic = {}
-            dic["payChannelNo"] = value[1]
-            dic["bsmJnlNo"] = value[0]
-            rtn_list.append(json.dumps(dic))
-        return rtn_list
+        try:
+            for value in self.mydb.fetchall(db_env, cus_no):
+                dic = {}
+                dic["payChannelNo"] = value[1]
+                dic["bsmJnlNo"] = value[0]
+                rtn_list.append(json.dumps(dic))
+            return rtn_list
+        except:
+            log.error("客户 " + str(cus_no) + " 已经没有可还的数据！")
+            return rtn_list
 
     def update_stutus(self, jsonlist, db_env):
         update_lis = []
@@ -115,15 +119,43 @@ class DoBackMoney:
         try:
             db_env, user_env, cust_no = self.get_user_input()
             try:
-                json_list = self.make_json_list(db_env, cust_no)
-                if json_list:
-                    _selenium = SeleniumUtils(user_env)
-                    rtn_json_list = _selenium.do_selenium(json_list)
-                    self.update_stutus(rtn_json_list, db_env)
+                while True:
+                    json_list = self.make_json_list(db_env, cust_no)
+                    if json_list:
+                        try:
+                            self._refund(json_list,user_env, db_env)
+                        except:
+                            log.info("正在重试。。。。")
+                    else:
+                        log.info("退款完成。。。。")
+                        break
             except:
                 log.warning("无可退还的支付数据或组装json数据出现了问题！")
         except Exception as e:
             log.error(e)
+
+    def _refund(self,json_list,user_env, db_env):
+        if len(json_list) < 10:
+            if json_list:
+                self.return_by_lis(json_list, user_env, db_env)
+        else:
+            new_lis = self.list_of_groups(json_list, 10)
+            for lis in new_lis:
+                if lis:
+                    self.return_by_lis(lis, user_env, db_env)
+
+    def return_by_lis(self,lis:list,user_env,db_env):
+        _selenium = SeleniumUtils(user_env)
+        rtn_json_list = _selenium.do_selenium(lis)
+        self.update_stutus(rtn_json_list, db_env)
+
+
+    def list_of_groups(self,init_list, children_list_len):
+        list_of_groups = zip(*(iter(init_list),) * children_list_len)
+        end_list = [list(i) for i in list_of_groups]
+        count = len(init_list) % children_list_len
+        end_list.append(init_list[-count:]) if count != 0 else end_list
+        return end_list
 
 
 if __name__ == '__main__':
