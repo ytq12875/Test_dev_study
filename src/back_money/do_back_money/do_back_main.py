@@ -69,7 +69,7 @@ class DoBackMoney:
                 rtn_list.append(json.dumps(dic))
             return rtn_list
         except:
-            log.error("客户 " + str(cus_no) + " 已经没有可还的数据！")
+            log.warning("客户 " + str(cus_no) + " 已经没有可还的数据！")
             return rtn_list
 
     def update_stutus(self, jsonlist, db_env):
