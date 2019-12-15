@@ -69,7 +69,8 @@ class RebootBox:
                 self.my_ssh_client.ssh_logout()
                 break
             elif self.is_reboot_Fail():
-                log.error(str(self.th_id) + "线程：出错了，" + self.env + "环境的BOX重启的错误为：" + self.is_reboot_Fail())
+                log.error(
+                    str(self.th_id) + "线程：出错了，" + self.env + "环境的BOX: " + self.box + "重启的错误为：" + self.is_reboot_Fail())
                 self.my_ssh_client.ssh_logout()
                 break
             else:

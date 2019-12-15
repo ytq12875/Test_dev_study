@@ -15,8 +15,8 @@ class TestMy:
 
         self.drive = webdriver.Chrome()
 
-    @Screen()
-    def test_1(self):
-        print("hhahaha")
-        sleep(1)
-        print("完了～～")
+    # @Screen()
+    # def test_1(self):
+    #     print("hhahaha")
+    #     sleep(1)
+    #     print("完了～～")

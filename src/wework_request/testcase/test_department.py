@@ -17,7 +17,7 @@ class TestDepartment:
     def setup_class(self):
         self.dp = Department()
 
-    @pytest.mark.parametrize("dpt_name,parentid,order,_id", [("测试添加8","1","10","40")])
+    @pytest.mark.parametrize("dpt_name,parentid,order,_id", [("测试添加9","1","10","41")])
     def test_add_department(self,dpt_name,parentid,order,_id):
         ret = self.dp.add_department(dpt_name,parentid,order,_id)
         assert ret["errcode"] == 0

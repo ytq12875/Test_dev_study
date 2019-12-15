@@ -12,7 +12,7 @@ from src.wework_request.utils.read_yaml import ReadYaml
 class UrlReader:
 
     def __init__(self):
-        self.path = os.path.dirname(os.getcwd()) + "/config"
+        self.path = "../config"
         self.file = "urls"
         self.ym_obj = ReadYaml(path=self.path,file=self.file)
 

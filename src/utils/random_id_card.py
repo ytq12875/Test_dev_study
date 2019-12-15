@@ -10,7 +10,7 @@ class RandomIdCard:
 
     def __init__(self):
         cur_path = os.getcwd()
-        rootPath = cur_path[:cur_path.find("Test_dev_study/") + len("Test_dev_study/")]
+        rootPath = cur_path[:cur_path.find("Tes_dev_study/") + len("Tes_dev_study/")]
         csv_path = rootPath + "/src/utils/area.csv"
         self.filename = csv_path
     # 功能：从csv文件中读取一个区域编码字典
