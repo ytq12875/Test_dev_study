@@ -63,13 +63,18 @@ class SeleniumUtils:
         sleep(2)
 
     def get_rst(self):
-        source = self.driver.page_source
-        doc = BeautifulSoup(source, "html.parser")
-        doc1_list = doc.find_all('textarea', class_="ant-input ant-input-lg")
-        for doc1 in doc1_list:
-            if 'readonly' in str(doc1):
-                return doc1.get_text()
+        # 使用bs4从页面元素提取值
+
+        # source = self.driver.page_source
+        # doc = BeautifulSoup(source, "html.parser")
+        # doc1_list = doc.find_all('textarea', class_="ant-input ant-input-lg")
+        # for doc1 in doc1_list:
+        #     if 'readonly' in str(doc1):
+        #         return doc1.get_text()
                 # return json.loads(rtn)["responseCode"]
+        # 通过xpath定位元素并进行json转换
+        rtn = self.driver.find_elements(By.XPATH,'//*[@class="ant-input ant-input-lg" and @type="textarea"]')[1].text
+        return json.loads(json.dumps(rtn))
 
     def quit_driver(self):
         self.driver.quit()
@@ -84,6 +89,7 @@ class SeleniumUtils:
                 retry = 0
                 while retry < 10:
                     rtn = self.get_rst()
+                    print(rtn)
                     if rtn:
                         new_json = json.dumps({**json.loads(json_value), **{"rtn_msg": rtn}})
                         rtn_json_list.append(new_json)
