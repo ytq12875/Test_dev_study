@@ -89,7 +89,6 @@ class SeleniumUtils:
                 retry = 0
                 while retry < 10:
                     rtn = self.get_rst()
-                    print(rtn)
                     if rtn:
                         new_json = json.dumps({**json.loads(json_value), **{"rtn_msg": rtn}})
                         rtn_json_list.append(new_json)
