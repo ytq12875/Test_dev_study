@@ -6,10 +6,12 @@ import os
 from time import sleep
 
 import pytest
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 from src.my_driver import browser
+from selenium.webdriver.chrome.webdriver import RemoteWebDriver
 from src.utils.log_utils import LogUtils
 
 log = LogUtils()
@@ -19,6 +21,14 @@ class TestSeleniumEx:
     def setup_method(self):
         log.info("初始化chrome：")
         self.driver = browser("chrome")
+        # chrome_options = Options()
+        # chrome_options.add_argument('--no-sandbox')
+        # chrome_options.add_argument('--user-data-dir')
+        # chrome_options.add_argument('--dns-prefetch-disable')
+        # chrome_options.add_argument('--lang=en-US')
+        # chrome_options.add_argument('--disable-setuid-sandbox')
+        # chrome_options.add_argument('--disable-gpu')
+        # self.driver = RemoteWebDriver("http://localhost:5001/wd/hub")
         self.driver.get("https://testerhome.com/")
         self.driver.maximize_window()
         self.driver.implicitly_wait(5)
@@ -77,10 +87,11 @@ class TestSeleniumEx:
 
 
 if __name__ == '__main__':
-    pytest.main(['-s', '-q', '--alluredir', './report/xml/'])
+    pytest.main(['-s', '-q', '--alluredir', './report/xml/','--clean-alluredir'])
     # 拼接cmd命令并执行
     rep_path = os.getcwd()
-    dish = rep_path.split(":")[0].lower()
+    print(rep_path)
+
     rep_cmd = "allure generate report/xml -o report/html"
-    command = '{0}: && cd {1} && {2}'.format(dish,rep_path,rep_cmd)
+    command = 'cd {0} && {1}'.format(rep_path,rep_cmd)
     os.system(command)
