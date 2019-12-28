@@ -90,7 +90,7 @@ class JenkinsUtils:
                                     for file_list in data["affectedPaths"]:
                                         log.info("线程" + self.th_id +  " 发起的" + my_job_name + " 变更的类： " + file_list)
                                     log.info("线程" + self.th_id +  " 发起的" + my_job_name + " 变更的备注： " + data["msg"])
-                                    log.info("线程" + self.th_id +  " 发起的" + my_job_name + " 提交人： " + data["author"]["fullName"])
+                                    log.info("线程" + self.th_id +  " 发起的" + my_job_name + " 变更的提交人： " + data["author"]["fullName"])
                             else:
                                 log.info("线程" + self.th_id +  " 发起的" + my_job_name + " 本次构建没有变更内容！")
                         else:
