@@ -98,8 +98,8 @@ class JenkinsUtils:
                             match = p2.findall(console_out)
                             if len(match) > 0:
                                 log.warning("线程" + self.th_id + " 构建的" + my_job_name + "包含了以下错误：")
-                                for warning in match:
-                                    log.warning(warning)
+                                for error in match:
+                                    log.error(error)
                         break
             else:
                 log.warning("线程" + self.th_id +  " 发起的" + my_job_name + ' Jenkins is running')
