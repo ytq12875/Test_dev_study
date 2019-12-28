@@ -33,7 +33,7 @@ class BoxReboot:
                     env_choose = "uat"
                 else:
                     env_choose = "pre"
-                box_name = input("请输入你要重启的BOX名：多个BOX请以英文的逗号隔开。\n ")
+                box_name = input("请输入你要重启的BOX名：多个BOX请以英文的逗号隔开。\n ").strip()
                 boxlist = box_name.split(",")
                 del_cache = input("是否清除缓存（y/n）输入非n/N的值则默认清除缓存！：\n")
                 threads = []

@@ -18,12 +18,12 @@ class YamlParser:
         file1.close()
 
     def get_yaml_load_all(self):
-        all_data = yaml.load_all(self.file_data,Loader=yaml.FullLoader)
+        all_data = yaml.load_all(self.file_data)
         for data in all_data:
             return data
 
     def get_yaml_data(self,key):
-        all_data = yaml.load_all(self.file_data,Loader=yaml.FullLoader)
+        all_data = yaml.load_all(self.file_data)
         for data in all_data:
             if  key in data.keys():
                 return data[key]

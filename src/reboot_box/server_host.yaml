@@ -6,7 +6,7 @@ uat:
     box: [Nginx,gwb01,gwm01,gwp01,gwo01,gwo02]
   host2:
     url: 10.91.18.140
-    box: [A0001,A1001,G0001,P0601,R0001,S0101,obd01,sms01,ume01]
+    box: [A0001,A1001,G0001,P0601,R0001,S0101,obd01,sms01,ume01,obdj1]
   host3:
     url: 10.91.18.141
     box: [S0601,S0001,omc01,wko01,S0901,ode01,dfs01,dts01,ordj1]

@@ -63,7 +63,7 @@ class RebootBox:
         log.info(str(self.th_id) + "线程：执行命令：" + command)
         self.my_ssh_client.execute_some_command(command)
         while True:
-            sleep(3)
+            sleep(2)
             if self.is_reboot_success():
                 log.info(str(self.th_id) + "线程：已经完成对" + self.env + "环境的BOX：" + self.box + "的重启！")
                 self.my_ssh_client.ssh_logout()
@@ -74,7 +74,8 @@ class RebootBox:
                 self.my_ssh_client.ssh_logout()
                 break
             else:
-                log.info(str(self.th_id) + "线程：等待重启完成......")
+                # log.info(str(self.th_id) + "线程：等待重启完成......")
+                pass
 
     def is_reboot_success(self):
         log_command = " cd /qhapp/apps/lo-boxs/%s/;cat boxlogs/lifecycle.log| grep 'onAllGearsStarted end'|awk -F' ' '{print $2}'|awk -F'.' '{print $1}' "
@@ -85,12 +86,12 @@ class RebootBox:
                 return True
 
     def is_reboot_Fail(self):
-        log_command = " cd /qhapp/apps/lo-boxs/%s/;cat boxlogs/lifecycle.log| grep 'LifecycleException'|awk -F' ' '{print $2}'|awk -F'.' '{print $1}' "
+        log_command = " cd /qhapp/apps/lo-boxs/%s/;cat boxlogs/lifecycle.log| grep 'ERROR'|awk -F' ' '{print $2}'|awk -F'.' '{print $1}' "
         logs = self.my_ssh_client.execute_some_command(log_command % self.box).split("\n")
         rst = [x for x in logs if x != '']
         for i in range(len(rst)):
             if time.strptime(rst[i], "%H:%M:%S") >= time.strptime(self.now_time, "%H:%M:%S"):
-                error_log_cmd = "cd /qhapp/apps/lo-boxs/%s/boxlogs; grep -A 10 -i '%s.[0-9][0-9][0-9]|ERROR' lifecycle.log"
+                error_log_cmd = "cd /qhapp/apps/lo-boxs/%s/boxlogs; grep -A 10 -i '%s.[0-9][0-9][0-9].ERROR' lifecycle.log"
                 error_log = self.my_ssh_client.execute_some_command(error_log_cmd % (self.box, rst[i]))
                 return error_log
 
