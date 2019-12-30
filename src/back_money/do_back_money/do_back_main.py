@@ -40,18 +40,20 @@ class DoBackMoney:
         insert_data = []
         log.info("从本地数据库读取待对比的数据...")
         db_has_data = self.mydb.fetchone(db_env, cust_no)
-        for value in self.get_all_back_value(cust_no, db_env, date):
-            if db_has_data:
-                if value[0] and value[1] in ("1001", "1002") and value not in db_has_data:
-                    insert_data.append(value)
-            else:
-                if value[0] and value[1] in ("1001", "1002"):
-                    insert_data.append(value)
-        if insert_data:
-            try:
-                self.mydb.insert_data(insert_data, db_env, cust_no)
-            except:
-                pass
+        will_return_list = self.get_all_back_value(cust_no, db_env, date)
+        if will_return_list:
+            for value in will_return_list:
+                if db_has_data:
+                    if value[0] and value[1] in ("1001", "1002") and value not in db_has_data:
+                        insert_data.append(value)
+                else:
+                    if value[0] and value[1] in ("1001", "1002"):
+                        insert_data.append(value)
+            if insert_data:
+                try:
+                    self.mydb.insert_data(insert_data, db_env, cust_no)
+                except:
+                    pass
         else:
             log.info("无需要插入本地数据库的数据！")
 
