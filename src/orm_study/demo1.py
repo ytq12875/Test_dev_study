@@ -10,7 +10,7 @@ from sqlalchemy.orm import sessionmaker
 from src.sqlite_db.model import UserDatum as ud
 
 cur_path = os.getcwd()
-rootPath = cur_path[:cur_path.find("Test_dev_study/")+len("Test_dev_study/")]
+rootPath = cur_path[:cur_path.find("Tes_dev_study/")+len("Tes_dev_study/")]
 sqlite_db_path = rootPath+"/src/sqlite_db/MySqlite.db"
 
 def _to_dict(models):
