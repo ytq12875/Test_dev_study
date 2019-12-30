@@ -84,6 +84,8 @@ class JenkinsUtils:
                         # 获取变更内容
                         change = count_build.get_changeset_items()
                         log.info("线程" + self.th_id +" "+ str(start_time) + " 发起的" + my_job_name + "构建已经完成，构建的状态为： " +status)
+                        p2 = re.compile(r".*ERROR.*")
+                        err_list = p2.findall(console_out)
                         if status == "SUCCESS":
                             if len(change) > 0:
                                 for data in change:
@@ -93,12 +95,14 @@ class JenkinsUtils:
                                     log.info("线程" + self.th_id +  " 发起的" + my_job_name + " 变更的提交人： " + data["author"]["fullName"])
                             else:
                                 log.info("线程" + self.th_id +  " 发起的" + my_job_name + " 本次构建没有变更内容！")
+                            if len(err_list) > 0:
+                                log.warning("线程" + self.th_id + " 构建的" + my_job_name + "构建状态为成功，但包含了以下错误：")
+                                for error in err_list:
+                                    log.error(error)
                         else:
-                            p2 = re.compile(r".*ERROR.*")
-                            match = p2.findall(console_out)
-                            if len(match) > 0:
+                            if len(err_list) > 0:
                                 log.warning("线程" + self.th_id + " 构建的" + my_job_name + "包含了以下错误：")
-                                for error in match:
+                                for error in err_list:
                                     log.error(error)
                         break
             else:
