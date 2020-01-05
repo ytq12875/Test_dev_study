@@ -109,7 +109,7 @@ class DoBackMoney:
                         db_env = "ex_db"
                     cus = data_list[1]
                     if len(cus)>11:
-                        cust_no = data_list[1]
+                        cust_no = cus
                     else:
                         cust_no = self.get_cus_from_phone(cus,env)
                     self.insert_will_back_value(cust_no, db_env, date)
