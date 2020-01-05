@@ -37,7 +37,7 @@ pre:
     box: [gwb01,gwm01,gwo01,gwp01]
   host2:
     url: 10.90.16.83
-    box: [A0001,A1001,sms01]
+    box: [A0001,A1001,sms01,obdj1]
   host3:
     url: 10.90.16.84
     box: [F0201,G0001,P0601,S0001,S0101]
@@ -70,7 +70,7 @@ pre:
     box: [C0011,G0011,obd11,wko11,pkc11]
   host13:
     url: 10.90.16.105
-    box: [F1011,stf11]
+    box: [F1011,stf11,ast11]
   host14:
     url: 10.90.16.95
     box: [F1001]

@@ -83,18 +83,20 @@ class JenkinsUtils:
                         status = count_build.get_status()
                         # 获取变更内容
                         change = count_build.get_changeset_items()
-                        log.info("线程" + self.th_id +" "+ str(start_time) + " 发起的" + my_job_name + "构建已经完成，构建的状态为： " +status)
+                        log.info("线程" + self.th_id + " " + str(
+                            start_time) + " 发起的" + my_job_name + "构建已经完成，构建的状态为： " + status)
                         p2 = re.compile(r".*ERROR.*")
                         err_list = p2.findall(console_out)
                         if status == "SUCCESS":
                             if len(change) > 0:
                                 for data in change:
                                     for file_list in data["affectedPaths"]:
-                                        log.info("线程" + self.th_id +  " 发起的" + my_job_name + " 变更的类： " + file_list)
-                                    log.info("线程" + self.th_id +  " 发起的" + my_job_name + " 变更的备注： " + data["msg"])
-                                    log.info("线程" + self.th_id +  " 发起的" + my_job_name + " 变更的提交人： " + data["author"]["fullName"])
+                                        log.info("线程" + self.th_id + " 发起的" + my_job_name + " 变更的类： " + file_list)
+                                    log.info("线程" + self.th_id + " 发起的" + my_job_name + " 变更的备注： " + data["msg"])
+                                    log.info("线程" + self.th_id + " 发起的" + my_job_name + " 变更的提交人： " + data["author"][
+                                        "fullName"])
                             else:
-                                log.info("线程" + self.th_id +  " 发起的" + my_job_name + " 本次构建没有变更内容！")
+                                log.info("线程" + self.th_id + " 发起的" + my_job_name + " 本次构建没有变更内容！")
                             if len(err_list) > 0:
                                 log.warning("线程" + self.th_id + " 构建的" + my_job_name + "构建状态为成功，但包含了以下错误：")
                                 for error in err_list:

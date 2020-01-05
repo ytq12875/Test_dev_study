@@ -107,7 +107,11 @@ class DoBackMoney:
                     else:
                         user_env = "ex"
                         db_env = "ex_db"
-                    cust_no = data_list[1]
+                    cus = data_list[1]
+                    if len(cus)>11:
+                        cust_no = data_list[1]
+                    else:
+                        cust_no = self.get_cus_from_phone(cus,env)
                     self.insert_will_back_value(cust_no, db_env, date)
                     return db_env, user_env, cust_no
                 else:
@@ -158,6 +162,13 @@ class DoBackMoney:
         count = len(init_list) % children_list_len
         end_list.append(init_list[-count:]) if count != 0 else end_list
         return end_list
+
+    def get_cus_from_phone(self,phone,env):
+        self.cus_db = MysqlConnect(env + "_cus_db", path)
+        sql_model = '''select um_no from um.um_user_info_base where mobile_phone = '%s' '''
+        cus_rst = self.cus_db.doSelect(sql_model,phone)
+        if cus_rst:
+            return cus_rst[0][0]
 
 
 if __name__ == '__main__':
