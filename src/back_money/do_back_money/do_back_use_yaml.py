@@ -67,7 +67,7 @@ class DoBackMoney_yaml(DoBackMoney):
             user_env = "ex"
             db_env = "ex_db"
         for cus in cus_list:
-            if len(cus)>11:
+            if len(str(cus))>11:
                 cus_no = cus
             else:
                 cus_no = self.get_cus_from_phone(cus,user_env)

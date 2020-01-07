@@ -9,6 +9,8 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
 
 from src.back_money.common.read_yaml import YamlParser
 from src.utils.log_utils import LogUtils
@@ -36,30 +38,44 @@ class SeleniumUtils:
         # self.driver = webdriver.Chrome(executable_path=path)
         # self.driver.maximize_window()
         self.driver.set_window_size(1366, 768)
-        self.driver.implicitly_wait(30)
+        self.driver.implicitly_wait(15)
         self.driver.get(url)
+
+    def _click_el(self,selector:tuple):
+        WebDriverWait(self.driver, 20).until(
+            expected_conditions.visibility_of_element_located(selector))
+        self.driver.find_element(*selector).click()
+
+    def _set_value(self,selector:tuple,value):
+        WebDriverWait(self.driver, 20).until(
+            expected_conditions.visibility_of_element_located(selector))
+        self.driver.find_element(*selector).clear()
+        self.driver.find_element(*selector).send_keys(value)
+
+    def click_by_js(self,selector:tuple):
+        el = self.driver.find_element(*selector)
+        self.driver.execute_script("$(arguments[0]).click()", el)
 
     def login(self, user, psw):
         log.info("用户登录中...")
-        self.driver.find_element(By.ID, "loginName").send_keys(user)
-        self.driver.find_element(By.ID, "loginPwd").send_keys(psw)
-        self.driver.find_element(By.CSS_SELECTOR, ".ant-btn-lg").click()
+        self._set_value((By.ID, "loginName"),user)
+        self._set_value((By.ID, "loginPwd"), psw)
+        self._click_el((By.CSS_SELECTOR, ".ant-btn-lg"))
 
     def goto_service(self):
-        log.info("进入zuche-paycloud-core.channel.testSpecialRefund服务...")
-        self.driver.find_element(By.CSS_SELECTOR,
-                                 "#root > div > main > div > aside > div.menu > ul > li:nth-child(3) > div > span").click()
-        self.driver.find_element(By.XPATH, '//a[contains(text(),"Service")]').click()
-        self.driver.find_element(By.ID, "gearNameLike").send_keys("zuche-paycloud-core")
-        self.driver.find_element(By.ID, "serviceNameLike").send_keys("zuche-paycloud-core.channel.testSpecialRefund")
-        self.driver.find_element(By.CSS_SELECTOR, ".ant-col-lg-offset-1 .ant-btn-primary").click()
-        self.driver.find_element(By.XPATH, '//a[text()="调用"]').click()
+        log.info("进入退款服务...")
+        self._click_el((By.XPATH,'//*[contains(text(), "运行管理")]'))
+        self._click_el((By.XPATH, '//a[contains(text(),"Service")]'))
+        self._set_value((By.ID, "gearNameLike"),"zuche-paycloud-core")
+        self._set_value((By.ID, "serviceNameLike"), "zuche-paycloud-core.channel.testSpecialRefund")
+        # self._click_el((By.XPATH, '//button[@type="submit"]'))
+        self.click_by_js((By.XPATH, '//button[@type="submit"]'))
+        self._click_el((By.XPATH, '//a[text()="调用"]'))
 
     def set_value_for_back(self, value):
-        self.driver.find_element(By.ID, "jsonArgs").clear()
         log.info("进行数据：" + value + "的退款操作...")
-        self.driver.find_element(By.ID, "jsonArgs").send_keys(value)
-        self.driver.find_element(By.CSS_SELECTOR, ".ant-modal-footer .ant-btn.ant-btn-primary.ant-btn-lg").click()
+        self._set_value((By.ID, "jsonArgs"), value)
+        self._click_el((By.CSS_SELECTOR, ".ant-modal-footer .ant-btn.ant-btn-primary.ant-btn-lg"))
         sleep(2)
 
     def get_rst(self):
