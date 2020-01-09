@@ -1,0 +1,78 @@
+{
+  "uid" : "98d3104e051c652961429bf95fa0b5d6",
+  "children" : [ {
+    "name" : "test_selenium_ex_0729",
+    "children" : [ {
+      "name" : "TestSeleniumEx",
+      "children" : [ {
+        "name" : "test_last_article",
+        "uid" : "ff88278edb4956b2",
+        "parentUid" : "6f5973ef02251cc48b7de75c5f3c7307",
+        "status" : "passed",
+        "time" : {
+          "start" : 1575898490269,
+          "stop" : 1575898496928,
+          "duration" : 6659
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "test_no_login_visit[霍格沃兹测试学院]",
+        "uid" : "37b559cd22243636",
+        "parentUid" : "6f5973ef02251cc48b7de75c5f3c7307",
+        "status" : "passed",
+        "time" : {
+          "start" : 1575898499913,
+          "stop" : 1575898509281,
+          "duration" : 9368
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ "'霍格沃兹测试学院'" ]
+      }, {
+        "name" : "test_error_login[lisi-123456]",
+        "uid" : "4a2f70c3a82397a",
+        "parentUid" : "6f5973ef02251cc48b7de75c5f3c7307",
+        "status" : "passed",
+        "time" : {
+          "start" : 1575898512392,
+          "stop" : 1575898515900,
+          "duration" : 3508
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ "'lisi'", "'123456'" ]
+      }, {
+        "name" : "test_error_login[zhangsan-454521]",
+        "uid" : "45be8d336a8091a9",
+        "parentUid" : "6f5973ef02251cc48b7de75c5f3c7307",
+        "status" : "passed",
+        "time" : {
+          "start" : 1575898519407,
+          "stop" : 1575898522914,
+          "duration" : 3507
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ "'zhangsan'", "'454521'" ]
+      }, {
+        "name" : "test_query[测试媛-[href=\"/topics/4331\"]-TesterHome 测试媛组织成立啦]",
+        "uid" : "38d56e8d78ff5d02",
+        "parentUid" : "6f5973ef02251cc48b7de75c5f3c7307",
+        "status" : "passed",
+        "time" : {
+          "start" : 1575898526179,
+          "stop" : 1575898532777,
+          "duration" : 6598
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ "'[href=\"/topics/4331\"]'", "'TesterHome 测试媛组织成立啦'", "'测试媛'" ]
+      } ],
+      "uid" : "6f5973ef02251cc48b7de75c5f3c7307"
+    } ],
+    "uid" : "8e296226312233b46952883613a2d008"
+  } ],
+  "name" : "suites"
+}

@@ -1,0 +1,6 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Mon Dec 09 21:34:50 CST 2019","Mon Dec 09 21:34:56 CST 2019","6659","","test_selenium_ex_0729","TestSeleniumEx","","","test_last_article",""
+"passed","Mon Dec 09 21:35:26 CST 2019","Mon Dec 09 21:35:32 CST 2019","6598","","test_selenium_ex_0729","TestSeleniumEx","","","test_query[测试媛-[href=""/topics/4331""]-TesterHome 测试媛组织成立啦]",""
+"passed","Mon Dec 09 21:35:12 CST 2019","Mon Dec 09 21:35:15 CST 2019","3508","","test_selenium_ex_0729","TestSeleniumEx","","","test_error_login[lisi-123456]",""
+"passed","Mon Dec 09 21:35:19 CST 2019","Mon Dec 09 21:35:22 CST 2019","3507","","test_selenium_ex_0729","TestSeleniumEx","","","test_error_login[zhangsan-454521]",""
+"passed","Mon Dec 09 21:34:59 CST 2019","Mon Dec 09 21:35:09 CST 2019","9368","","test_selenium_ex_0729","TestSeleniumEx","","","test_no_login_visit[霍格沃兹测试学院]",""

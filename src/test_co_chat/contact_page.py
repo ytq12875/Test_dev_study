@@ -17,7 +17,7 @@ class ContactPage(BaseObject, ContactPageElements):
         self.comm_str = CommonStr()
 
     def add_member(self, name, rd_phone, tel_phone):
-        pic_path = "E:/pic/demo.png"
+        pic_path = "/home/ytq/pictures/test.png"
         self.driver_wait_vist(self.add_member_contact_menu)
         self.click_by_selector(self.add_member_contact_menu)
         self.driver_wait_vist(self.add_member_contact_list)
