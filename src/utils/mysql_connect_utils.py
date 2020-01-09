@@ -72,6 +72,24 @@ class MysqlConnect(object):
             cur.close()
             self.doClose()
 
+    def execute_sql_file(self,file):
+        conn = self.doConnect()
+        cur = conn.cursor()
+        try:
+            ##读取SQL文件,获得sql语句的list
+            with open(file, 'r+') as f:
+                sql_list = f.read().split(';')[:-1]  # sql文件最后一行加上;
+                sql_list = [x.replace('\n', ' ') if '\n' in x else x for x in sql_list]  # 将每段sql里的换行符改成空格
+            ##执行sql语句，使用循环执行sql语句
+            for sql_item in sql_list:
+                cur.execute(sql_item)
+        except pymysql.Error as e:
+            print(e)
+        finally:
+            cur.close()
+            conn.commit()
+            self.doClose()
+
 
 if __name__ == '__main__':
     mc = MysqlConnect("uat_pay_db", path)
@@ -83,3 +101,5 @@ if __name__ == '__main__':
     rst1 = mc.doSelect(sql1)
     print(rst)
     print(rst1)
+    md = MysqlConnect("uat_cus_db", path)
+    md.execute_sql_file('/home/ytq/data/03_mileage_insert.sql')
