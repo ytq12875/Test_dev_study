@@ -25,7 +25,12 @@ class WhiteList:
         self.cus_db = MysqlConnect(self.db_env + "_cus_db", path)
 
     def add_white_list(self,phone):
-        cus_no = self.get_cus_no(phone)
+        if len(phone) == 11:
+            cus_no = self.get_cus_no(phone)
+        elif len(phone) == 17:
+            cus_no = phone
+        else:
+            cus_no = None
         if cus_no:
             sql_model = '''INSERT INTO pcenter.pay_catalog (`group_name`, `item_value`, `item_title`, `seq_no`, `date_created`, `date_updated`,
                                      `create_by`, `update_by`)
@@ -47,7 +52,7 @@ class WhiteList:
             return cus_rst[0][0]
 
     def do_insert_white(self):
-        phone_list:list = input("请输入要插入白名单的手机：（以英文的逗号分割）\n").split(",")
+        phone_list:list = input("请输入要插入白名单的手机或者客户号：（以英文的逗号分割）\n").strip().split(",")
         for phone in phone_list:
             self.add_white_list(phone)
 
