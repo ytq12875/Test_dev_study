@@ -37,13 +37,13 @@ class WhiteList:
     VALUES ('test_white_list', '%s', '测试白名单', '1', NULL, NULL, NULL, NULL)'''
             flag = self.pay_db.doChange(sql_model,cus_no)
             if flag == 1:
-                log.info('客户手机/客户号'+ phone + '白名单插入成功')
+                log.info('客户手机/客户号：'+ phone + ' 白名单插入成功')
             elif "PRIMARY" in str(flag):
-                log.warning('客户手机/客户号'+ phone + '白名单插入失败： 白名单已经存在！')
+                log.warning('客户手机/客户号：'+ phone + ' 白名单插入失败： 白名单已经存在！')
             else:
-                log.error('客户手机/客户号'+ phone + '白名单插入失败： ' + str(flag))
+                log.error('客户手机/客户号：'+ phone + ' 白名单插入失败： ' + str(flag))
         else:
-            log.warning('客户手机/客户号'+ phone + '客户不存在！')
+            log.warning('客户手机/客户号：'+ phone + ' 客户不存在！')
 
     def get_cus_no(self,phone):
         sql_model = '''select um_no from um.um_user_info_base where mobile_phone = '%s' '''
