@@ -71,7 +71,7 @@ class DoBackMoney:
                 rtn_list.append(json.dumps(dic))
             return rtn_list
         except:
-            log.warning("客户 " + str(cus_no) + " 已经没有可还的数据！")
+            log.warning("客户 " + str(cus_no) + " 已经没有可退还的数据！")
             return rtn_list
 
     def update_stutus(self, jsonlist, db_env):
@@ -108,12 +108,15 @@ class DoBackMoney:
                         user_env = "ex"
                         db_env = "ex_db"
                     cus = data_list[1]
-                    if len(cus)>11:
+                    if len(cus) == 17:
                         cust_no = cus
                     else:
                         cust_no = self.get_cus_from_phone(cus,env)
-                    self.insert_will_back_value(cust_no, db_env, date)
-                    return db_env, user_env, cust_no
+                    if cust_no:
+                        self.insert_will_back_value(cust_no, db_env, date)
+                        return db_env, user_env, cust_no
+                    else:
+                        log.error("输入的客户号或者手机号码不正确")
                 else:
                     log.error("输入的环境有误！")
             else:
