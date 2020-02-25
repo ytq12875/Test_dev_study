@@ -119,7 +119,7 @@ class JenkinsUtils:
         elif len(my_job_name) == 0:
             log.error("线程" + self.th_id + " 输入的job模糊名不正确！")
         else:
-            index = int(input("线程" + self.th_id + " 从列表中选择你要构建的任务："+ str(my_job_name) + "\n"))
+            index = int(input("线程" + self.th_id + "从列表中选择你要构建的任务："+ str(list(enumerate(my_job_name,start=1))) + "\n"))
             try:
                 my_job_name = my_job_name[index - 1]
                 self.job_build(my_job_name)
