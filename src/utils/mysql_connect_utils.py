@@ -39,9 +39,9 @@ class MysqlConnect(object):
 
     def doSelect(self, sql, condition=None):
         """查询"""
+        conn = self.doConnect()
+        cur = conn.cursor()
         try:
-            conn = self.doConnect()
-            cur = conn.cursor()
             if condition:
                 cur.execute(sql % condition)
             else:
