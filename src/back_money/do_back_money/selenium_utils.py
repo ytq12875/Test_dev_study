@@ -28,7 +28,7 @@ class SeleniumUtils:
         self.user = user_file.get_yaml_data(env).get("login_name")
         self.psw = user_file.get_yaml_data(env).get("login_psw")
         # path = "D:/webdriver/chromedriver.exe"
-        path = "/home/ytq/webdriver/78.0.3904.70/chromedriver"
+        path = "/home/ytq/webdriver/80.0.3987.106/chromedriver"
         # 无头模式
         log.info("进入无头Chrome模式...")
         chrome_options = Options()

@@ -3,6 +3,7 @@
 # __author__ = "Yang Tie Qiao"
 import datetime
 import os
+import re
 import time
 from time import sleep
 
@@ -14,6 +15,7 @@ log = LogUtils()
 
 
 class RebootBox:
+
     def __init__(self, th_id, env, box, del_cache="y"):
         ym = YamlParser("server_host", os.getcwd())
         self.env = env
@@ -24,7 +26,7 @@ class RebootBox:
         self.box = box
         self.del_cache = del_cache
         self.th_id = th_id
-        self.now_time = datetime.datetime.now().strftime('%H:%M:%S')
+        # self.now_time = datetime.datetime.now().strftime('%H:%M:%S')
 
     def get_host_from_box(self):
         for key in self.data.keys():
@@ -45,6 +47,8 @@ class RebootBox:
     def check_box_from_host(self):
         if self.connect_host() == 1000:
             log.info(str(self.th_id) + "线程：连接服务器IP：" + self.host + "成功！")
+            server_time = self.my_ssh_client.execute_some_command("date")
+            self.now_time = re.findall("[0-2][0-9]:[0-5][0-9]:[0-5][0-9]",server_time)[0]
             box_list = self.my_ssh_client.execute_some_command('cd /qhapp/apps/lo-boxs/;ls')
             box_list = box_list.split("\n")
             if self.box in box_list:
