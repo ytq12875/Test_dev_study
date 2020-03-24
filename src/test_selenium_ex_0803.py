@@ -6,6 +6,7 @@ import random
 
 import pytest
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
@@ -15,7 +16,7 @@ class TestSeleniumEx:
 
     # 初始化，制定驱动路径并最大化浏览器和设置隐式等待
     def setup_method(self):
-        path = "D:/webdriver/chromedriver.exe"
+        path = "/home/ytq/webdriver/80.0.3987.106/chromedriver"
         # 电脑一直调不出来debug换端口啥都试过就是没法打开debug端口
         # options = Options()
         # options.add_experimental_option ("debuggerAddress", "127.0.0.1:9222")
@@ -100,4 +101,4 @@ class TestSeleniumEx:
 
 
 if __name__ == '__main__':
-    pytest.main(["-s", "test_selenium_ex_0803.py"])
+    pass

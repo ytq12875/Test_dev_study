@@ -5,9 +5,9 @@ import os
 
 import pymysql
 
-from src.back_money.common.read_yaml import YamlParser
+from src.web_auto.common.read_yaml import YamlParser
 
-path = os.path.dirname(os.getcwd()) + "/back_money/config"
+path = os.path.dirname(os.getcwd()) + "/web_auto/config"
 
 
 class MysqlConnect(object):

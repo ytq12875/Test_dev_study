@@ -1,0 +1,10 @@
+pre:
+  url: http://10.90.16.88:52102/static/index.html#/login  #app
+  url1: http://10.90.16.104:52102/static/index.html#/login  #web
+
+uat:
+  url: http://10.91.18.142:52102/static/index.html#/login  #app
+  url1: http://10.91.18.100:52102/static/index.html#/login  #web
+
+ex:
+  url: http://10.60.80.86:52102/static/#/login

@@ -3,7 +3,7 @@
 # __author__ = "Yang Tie Qiao"
 import os
 
-from src.back_money.do_back_money.sqlite_utls import SqliteUtils
+from src.web_auto.do_back_money.sqlite_utls import SqliteUtils
 from src.utils.common_str import CommonStr
 from src.utils.log_utils import LogUtils
 

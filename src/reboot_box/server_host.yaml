@@ -3,7 +3,7 @@ uat:
   psw: ldygo@9012!@#$%&*#
   host1:
     url: 10.91.138.140
-    box: [Nginx,gwb01,gwm01,gwp01,gwo01,gwo02]
+    box: [Nginx,gwb01,gwm01,gwp01,gwo01,gwo02,gwe01]
   host2:
     url: 10.91.18.140
     box: [A0001,A1001,G0001,P0601,R0001,S0101,obd01,sms01,ume01,obdj1]

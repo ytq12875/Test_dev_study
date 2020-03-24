@@ -1,0 +1,11 @@
+base: https://aip.baidubce.com/rest/2.0
+ocr:
+  api: ocr
+  version: v1
+  apis:
+    general_location: general
+    general: general_basic
+    general_high: accurate_basic
+    general_high_location: accurate
+    handwriting: handwriting
+    driving_license: driving_license

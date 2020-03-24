@@ -7,7 +7,7 @@ import re
 import time
 from time import sleep
 
-from src.back_money.common.read_yaml import YamlParser
+from src.web_auto.common.read_yaml import YamlParser
 from src.reboot_box.ssh_client_utils import MySshClient
 from src.utils.log_utils import LogUtils
 

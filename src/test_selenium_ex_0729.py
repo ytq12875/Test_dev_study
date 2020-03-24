@@ -18,7 +18,7 @@ log = LogUtils()
 class TestSeleniumEx:
 
     # 初始化，制定驱动路径并最大化浏览器和设置隐式等待
-    def setup_method(self):
+    def setup(self):
         log.info("初始化chrome：")
         self.driver = browser("chrome")
         # chrome_options = Options()

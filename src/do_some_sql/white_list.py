@@ -9,7 +9,7 @@ import os
 from src.utils.log_utils import LogUtils
 from src.utils.mysql_connect_utils import MysqlConnect
 
-path = os.path.dirname(os.getcwd()) + "/back_money/config"
+path = os.path.dirname(os.getcwd()) + "/web_auto/config"
 log = LogUtils()
 
 class WhiteList:

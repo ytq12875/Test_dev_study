@@ -12,7 +12,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
-from src.back_money.common.read_yaml import YamlParser
+from src.web_auto.common.read_yaml import YamlParser
 from src.utils.log_utils import LogUtils
 
 log = LogUtils()

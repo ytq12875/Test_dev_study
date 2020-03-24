@@ -15,11 +15,12 @@ class TestXueQiu:
         # app启动参数
         desired_caps = {}
         desired_caps["platformName"] = "Android"
-        desired_caps["platformVersion"] = "7.1.2"
-        desired_caps["deviceName"] = "10.170.45.70:5555"
+        desired_caps["deviceName"] = "myDevice"
         desired_caps["appPackage"] = "com.xueqiu.android"
         desired_caps["appActivity"] = ".view.WelcomeActivityAlias"
         desired_caps["autoGrantPermissions"] = True
+        # desired_caps["dontStopAppOnReset"] = True
+        # desired_caps["noReset"] = True
         # desired_caps["skipServerInstallation"] = True
         # desired_caps["skipDeviceInitialization"] = True
         # 驱动
@@ -30,8 +31,8 @@ class TestXueQiu:
         self.driver.quit()
 
     def goto_login_page(self):
-        self.driver.find_element(By.ID, "com.xueqiu.android:id/user_profile_icon").click()
-        self.driver.find_element(By.ID, "com.xueqiu.android:id/rl_login_phone").click()
+        self.driver.find_element(By.XPATH, "//*[@text='我的']").click()
+        self.driver.find_element(By.ID, "com.xueqiu.android:id/tv_login_phone").click()
         self.driver.find_element(By.ID, "com.xueqiu.android:id/tv_login_with_account").click()
 
     def test_wrong_phone(self):
@@ -53,10 +54,17 @@ class TestXueQiu:
     @pytest.mark.parametrize("search,rst", [("alibaba", "阿里巴巴"), ("xiaomi", "小米"), ("google", "谷歌")])
     def test_search(self, search, rst):
         self.driver.find_element(By.ID, "com.xueqiu.android:id/home_search").click()
+        print(self.driver.page_source)
         self.driver.find_element(By.ID, "com.xueqiu.android:id/search_input_text").send_keys(search)
+        print(self.driver.page_source)
         self.driver.find_element(By.ID, "com.xueqiu.android:id/name").click()
+        print(self.driver.page_source)
+        self.driver.find_element(*self.text("加自选")).click()
         text = self.driver.find_element(By.ID, "com.xueqiu.android:id/stockName").text
         assert rst in text
+
+    def text(self,key):
+        return (By.XPATH,"//*[@text='%s']"%key)
 
 
 if __name__ == '__main__':

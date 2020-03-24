@@ -4,8 +4,8 @@
 import json
 import os
 
-from src.back_money.common.data_collection import DataCollection
-from src.back_money.do_back_money.selenium_utils import SeleniumUtils
+from src.web_auto.common.data_collection import DataCollection
+from src.web_auto.do_back_money.selenium_utils import SeleniumUtils
 from src.utils.common_str import CommonStr
 from src.utils.log_utils import LogUtils
 from src.utils.mysql_connect_utils import MysqlConnect
@@ -23,10 +23,10 @@ class DoBackMoney:
     def get_all_back_value(self, cust_no, db_env, date=None):
         log.info("从服务器数据库中查询给定条件的退款数据...")
         if date:
-            _sql = "select bsm_jnl_no, cap_channel_no from pcenter.pay_consume_jnl where pay_order_no in (select pay_order_no from pcenter.pay_consume_order where cust_no = '%s' and order_date ='%s') and biz_no not like 'TK%%'"
+            _sql = "select bsm_jnl_no, cap_channel_no from pcenter.pay_consume_jnl where pay_order_no in (select pay_order_no from pcenter.pay_consume_order where cust_no = '%s' and order_date ='%s') and biz_no not like 'TK%%'  and trans_status = '2'"
             get_value_sql = _sql % (cust_no, date)
         else:
-            _sql = "select bsm_jnl_no, cap_channel_no from pcenter.pay_consume_jnl where pay_order_no in (select pay_order_no from pcenter.pay_consume_order where cust_no = '%s') and biz_no not like 'TK%%' "
+            _sql = "select bsm_jnl_no, cap_channel_no from pcenter.pay_consume_jnl where pay_order_no in (select pay_order_no from pcenter.pay_consume_order where cust_no = '%s') and biz_no not like 'TK%%' and trans_status = '2'"
             get_value_sql = _sql % (cust_no)
         db = MysqlConnect(db_env, path)
         log.info("服务器数据库执行sql：" + get_value_sql)
@@ -35,6 +35,17 @@ class DoBackMoney:
             return list(rst)
         else:
             log.warning("服务端没有待退款的数据！")
+
+    def check_is_h5(self,db_env,bsmJnlNo):
+        _sql ="select wx_trade_type from pcenter.pay_jnl_weixin where bsm_jnl_no = '%s';"
+        check_sql =  _sql % (bsmJnlNo)
+        db = MysqlConnect(db_env, path)
+        log.info("服务器数据库执行sql：" + check_sql)
+        rst = db.doSelect(check_sql)
+        if rst[0][0] =="JSAPI":
+            return True
+        else:
+            return False
 
     def insert_will_back_value(self, cust_no, db_env, date=None):
         insert_data = []
@@ -68,6 +79,9 @@ class DoBackMoney:
                 dic = {}
                 dic["payChannelNo"] = value[1]
                 dic["bsmJnlNo"] = value[0]
+                if value[1] =="1001":
+                    if self.check_is_h5(db_env,value[0]):
+                        dic["payPathNo"] = "T0020004"
                 rtn_list.append(json.dumps(dic))
             return rtn_list
         except:

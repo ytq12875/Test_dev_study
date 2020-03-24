@@ -8,10 +8,10 @@
 import json
 import os
 
-from src.back_money.common.data_collection import DataCollection
-from src.back_money.common.read_yaml import YamlParser
-from src.back_money.do_back_money.do_back_main import DoBackMoney
-from src.back_money.do_back_money.selenium_utils import SeleniumUtils
+from src.web_auto.common.data_collection import DataCollection
+from src.web_auto.common.read_yaml import YamlParser
+from src.web_auto.do_back_money.do_back_main import DoBackMoney
+from src.web_auto.do_back_money.selenium_utils import SeleniumUtils
 from src.utils.common_str import CommonStr
 from src.utils.log_utils import LogUtils
 from src.utils.mysql_connect_utils import MysqlConnect
