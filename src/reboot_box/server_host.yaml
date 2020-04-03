@@ -27,7 +27,7 @@ uat:
     box: [S0011,S0611,S0911,stf11]
   host9:
     url: 10.91.18.102
-    box: [E0011,G0011,P0611,R0011,S0111,obd11,sms11]
+    box: [E0011,G0011,P0611,R0011,S0111,obd11,sms11,moc01]
 
 pre:
   user: tomcat

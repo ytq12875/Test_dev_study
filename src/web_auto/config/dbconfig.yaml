@@ -10,6 +10,12 @@ uat_cus_db:
   user: ldyop
   passwd: Ldyop123@ldygo.com
 
+uat_comm_db:
+  host: 10.91.19.100
+  port: 3325
+  user: ldyop
+  passwd: Ldyop123@ldygo.com
+
 pre_pay_db:
   host: 10.90.16.109
   port: 3324
@@ -22,6 +28,12 @@ pre_cus_db:
   user: ldyop
   passwd: Ldyop123@ldygo.com
 
+pre_comm_db:
+  host: 10.90.16.109
+  port: 3325
+  user: ldyop
+  passwd: Ldyop123@ldygo.com
+
 ex_pay_db:
   host: 10.60.80.94
   port: 3311
@@ -29,6 +41,12 @@ ex_pay_db:
   passwd: Ldyop123@ldygo.com
 
 ex_cus_db:
+  host: 10.60.80.94
+  port: 3311
+  user: ldyop
+  passwd: Ldyop123@ldygo.com
+
+ex_comm_db:
   host: 10.60.80.94
   port: 3311
   user: ldyop
