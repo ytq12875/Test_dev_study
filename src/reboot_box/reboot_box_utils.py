@@ -81,6 +81,24 @@ class RebootBox:
                 # log.info(str(self.th_id) + "线程：等待重启完成......")
                 pass
 
+    def execute_stop_command(self):
+        command_moudle = 'cd /qhapp/apps/lo-boxs/%s/;sh shutdown-box.sh %s'
+        command = command_moudle % (self.box, self.box)
+        log.info(str(self.th_id) + "线程：执行命令：" + command)
+        rst = self.my_ssh_client.execute_some_command(command)
+        while True:
+            if 'ok' in rst:
+                log.info(str(self.th_id) + "线程：已经完成对" + self.env + "环境的BOX：" + self.box + "的服务停止操作！")
+                self.my_ssh_client.ssh_logout()
+                break
+            elif 'not running!'in rst:
+                log.warning(str(self.th_id) + "线程：" + self.env + "环境的BOX：" + self.box + "不是启动状态，跳过！")
+                self.my_ssh_client.ssh_logout()
+                break
+            else:
+                sleep(2)
+
+
     def is_reboot_success(self):
         log_command = " cd /qhapp/apps/lo-boxs/%s/;cat boxlogs/lifecycle.log| grep 'onAllGearsStarted end'|awk -F' ' '{print $2}'|awk -F'.' '{print $1}' "
         logs = self.my_ssh_client.execute_some_command(log_command % self.box).split("\n")
@@ -102,5 +120,11 @@ class RebootBox:
     def do_reboot(self):
         if self.check_box_from_host():
             self.execute_reboot_command()
+        else:
+            log.warning(str(self.th_id) + "线程：BOX：" + self.box + "不在host中，请参照svn最新的环境信息更新server_host.yaml")
+
+    def stop_box(self):
+        if self.check_box_from_host():
+            self.execute_stop_command()
         else:
             log.warning(str(self.th_id) + "线程：BOX：" + self.box + "不在host中，请参照svn最新的环境信息更新server_host.yaml")
