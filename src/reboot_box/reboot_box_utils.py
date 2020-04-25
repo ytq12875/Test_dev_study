@@ -47,8 +47,7 @@ class RebootBox:
     def check_box_from_host(self):
         if self.connect_host() == 1000:
             log.info(str(self.th_id) + "线程：连接服务器IP：" + self.host + "成功！")
-            server_time = self.my_ssh_client.execute_some_command("date")
-            self.now_time = re.findall("[0-2][0-9]:[0-5][0-9]:[0-5][0-9]",server_time)[0]
+            self.now_time = self.my_ssh_client.execute_some_command("date | awk '{print $4}'")
             box_list = self.my_ssh_client.execute_some_command('cd /qhapp/apps/lo-boxs/;ls')
             box_list = box_list.split("\n")
             if self.box in box_list:
