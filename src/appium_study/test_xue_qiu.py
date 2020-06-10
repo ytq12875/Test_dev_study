@@ -5,6 +5,7 @@
 # @File    :
 import pytest
 from appium import webdriver
+from appium.webdriver.common.mobileby import MobileBy
 from selenium.webdriver.common.by import By
 
 
@@ -21,8 +22,8 @@ class TestXueQiu:
         desired_caps["autoGrantPermissions"] = True
         # desired_caps["dontStopAppOnReset"] = True
         # desired_caps["noReset"] = True
-        # desired_caps["skipServerInstallation"] = True
-        # desired_caps["skipDeviceInitialization"] = True
+        desired_caps["skipServerInstallation"] = True
+        desired_caps["skipDeviceInitialization"] = True
         # 驱动
         self.driver = webdriver.Remote(server, desired_caps)
         self.driver.implicitly_wait(15)
@@ -32,6 +33,7 @@ class TestXueQiu:
 
     def goto_login_page(self):
         self.driver.find_element(By.XPATH, "//*[@text='我的']").click()
+        # self.driver.find_element(By.ID, "user_profile_icon").click()
         self.driver.find_element(By.ID, "com.xueqiu.android:id/tv_login_phone").click()
         self.driver.find_element(By.ID, "com.xueqiu.android:id/tv_login_with_account").click()
 

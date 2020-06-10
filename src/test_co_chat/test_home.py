@@ -47,6 +47,7 @@ class TestHome:
             assert "禁用成功" in tips
 
     def test_used_member(self, init_driver):
+
         unuse = ProfilePage(init_driver)
         rst = unuse.used_member()
         if rst:

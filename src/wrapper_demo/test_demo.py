@@ -5,18 +5,28 @@
 # @Software: PyCharm
 from time import sleep
 
+import pytest
+import yaml
+
 from src.wrapper_demo.my_wrapper import Screen
 from selenium import webdriver
 
 
 class TestMy:
 
-    def setup(self):
+    # def setup(self):
+    #
+    #     self.drive = webdriver.Chrome()
+    #
+    # # @Screen()
+    # # def test_1(self):
+    # #     print("hhahaha")
+    # #     sleep(1)
+    # #     print("完了～～")
 
-        self.drive = webdriver.Chrome()
+    @pytest.mark.parametrize("a,b",yaml.safe_load(open("tstdt.yaml",'r', encoding='UTF-8' )))
+    def test_data(self,a,b):
+        # print(yaml.safe_load(open("tstdt.yaml",'r', encoding='UTF-8' )))
+        print(a+b)
 
-    # @Screen()
-    # def test_1(self):
-    #     print("hhahaha")
-    #     sleep(1)
-    #     print("完了～～")
+

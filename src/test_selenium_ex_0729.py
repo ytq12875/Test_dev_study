@@ -9,6 +9,8 @@ import pytest
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
 
 from src.my_driver import browser
 from selenium.webdriver.chrome.webdriver import RemoteWebDriver
@@ -52,11 +54,12 @@ class TestSeleniumEx:
 
     # 社区访问霍格沃兹测试学院，断言未登录是被拒绝的
     # @pytest.mark.skip
-    @pytest.mark.parametrize("home", [("霍格沃兹测试学院")])
+    @pytest.mark.parametrize("home", [("//*[@data-name='霍格沃兹测试学院']")])
+    @pytest.mark.repeat(2)
     def test_no_login_visit(self, home):
         self.driver.find_element(By.LINK_TEXT, "社团").click()
-        sleep(3)
-        self.driver.find_element(By.LINK_TEXT, home).click()
+        WebDriverWait(self.driver,15).until(expected_conditions.element_to_be_clickable((By.XPATH, home)))
+        self.driver.find_element(By.XPATH, home).click()
         sleep(3)
         self.driver.find_element(By.XPATH, '//*[@id="main"]/div/div[1]/div/div[1]/div[1]/div[2]/div[1]/a').click()
         sleep(3)
@@ -87,7 +90,7 @@ class TestSeleniumEx:
 
 
 if __name__ == '__main__':
-    pytest.main(['-s', '-q', '--alluredir', './report/xml/','--clean-alluredir'])
+    pytest.main(['-s', '-q', 'test_selenium_ex_0729.py','--alluredir', './report/xml/','--clean-alluredir'])
     # 拼接cmd命令并执行
     rep_path = os.getcwd()
     print(rep_path)

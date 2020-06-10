@@ -123,7 +123,12 @@ class SeleniumUtils:
 
 
 if __name__ == '__main__':
-    sel = SeleniumUtils("uat")
-    json_list = ['{"payChannelNo": "1002","bsmJnlNo": "100220190827144849ST90100367"}',
-                 '{"payChannelNo": "1002","bsmJnlNo": "100220190827144229ST90100357"}']
-    sel.do_selenium(json_list)
+    # sel = SeleniumUtils("uat")
+    # json_list = ['{"payChannelNo": "1002","bsmJnlNo": "100220190827144849ST90100367"}',
+    #              '{"payChannelNo": "1002","bsmJnlNo": "100220190827144229ST90100357"}']
+    # sel.do_selenium(json_list)
+
+    curPath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+    rootPath = os.path.split(curPath)[0]
+    print(curPath)
+    print(rootPath)
