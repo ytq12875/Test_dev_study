@@ -102,10 +102,7 @@ def get_name():
 
 
 def get_phone():
-    str_phone = ""
-    for i in range(8):
-        phone_part = random.choice(list_tel4)
-        str_phone += phone_part
+    str_phone = ''.join(random.sample(list_tel4, 8))
     return random.choice(list_tel) + str_phone
 
 
