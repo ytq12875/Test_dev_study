@@ -97,12 +97,12 @@ list_last_name = ['梦', '琪', '忆', '柳', '之', '绿', '冰', '蓝', '灵',
 
 def get_name():
     first_name = random.choice(list_first_name)
-    last_name = ''.join(random.sample(list_last_name, random.randint(1, 2)))
+    last_name = ''.join(random.choices(list_last_name, k=random.randint(1, 2)))
     return first_name + last_name
 
 
 def get_phone():
-    str_phone = ''.join(random.sample(list_tel4, 8))
+    str_phone = ''.join(random.choices(list_tel4, k=8))
     return random.choice(list_tel) + str_phone
 
 
@@ -118,4 +118,5 @@ if __name__ == '__main__':
         post = get_post()
         id_card = id_info[0]
         add = id_info[1]
-        print(name + " 身份证号为：" + id_card + "，电话为 " + get_phone() + "，来自于" + add + ", 职位为：" + post)
+        sex = id_info[2]
+        print(name + " 姓别: " + sex + " 身份证号为：" + id_card + "，手机号为 " + get_phone() + "，来自于" + add + ", 职位为：" + post)

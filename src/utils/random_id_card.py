@@ -52,8 +52,8 @@ class RandomIdCard:
 
     def __ordrNum(self):
         odNum = random.randint(0, 999)  # 随机生成0到999之间的数据
-        sex = odNum % 2
-        return (str(odNum).zfill(3), sex) #返回3位补零的序列号和性别
+        sex = lambda x: "男" if x % 2 == 1 else "女"
+        return (str(odNum).zfill(3), sex(odNum))  # 返回3位补零的序列号和性别
 
     # 功能：生成校验码
 
@@ -74,7 +74,7 @@ class RandomIdCard:
         (ordNum, sex) = self.__ordrNum()  # 生成顺序号和性别
         checkcode = self.__check((areaCd + birthDy + ordNum))  # 生产校验码
         id_card = areaCd + birthDy + ordNum + checkcode  # 拼装身份证号
-        return id_card, areaCdName
+        return id_card, areaCdName, sex
 
     def check_is_id_card(self, id_num):
         id_str = str(id_num)
