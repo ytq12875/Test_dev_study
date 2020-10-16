@@ -9,13 +9,32 @@ class ListRemove:
 
     def check_seq(self, local_list: List, history_list: List):
         flag = True
+        rst_list = []
         for dat in local_list:
-            try:
-                dat = self.hit_re(dat, history_list)
-                hit_index = history_list.index(dat)
+            dat_rst = self.hit_re(dat, history_list)
+            if len(dat_rst) > 0:
+                hit_index = history_list.index(dat_rst[0])
                 del (history_list[:hit_index + 1])
-            except Exception as e:
-                flag = False
+                flag_temp = True
+            else:
+                flag_temp = False
+            rst_list.append(flag_temp)
+        if False in rst_list:
+            flag = False
+        return flag
+
+    def check_seq_not(self, local_list: List, history_list: List):
+        flag = True
+        rst_list = []
+        for dat in local_list:
+            dat_rst = self.hit_re(dat, history_list)
+            if len(dat_rst) > 0:
+                flag_temp = False
+            else:
+                flag_temp = True
+            rst_list.append(flag_temp)
+        if False in rst_list:
+            flag = False
         return flag
 
     def hit_re(self, _re, lis: List):
@@ -24,7 +43,7 @@ class ListRemove:
             hit = re.findall(_re, dat)
             if hit:
                 ret.append(hit[0])
-        return ret[0]
+        return ret
 
 
 if __name__ == '__main__':
@@ -40,6 +59,6 @@ if __name__ == '__main__':
         "done close door ................(133ms) pass",
         "we are the end ................(133ms) pass"
     ]
-    local_list = ["we are the second.*\(\d+ms\) pass","we are the first.*\(\d+ms\) pass"]
+    local_list = ["we are the first.*\(\d+ms\) pass","we are the second.*\(\d+ms\) pass"]
     lis = ListRemove()
-    print(lis.check_seq(local_list, history))
+    print(lis.check_seq_not(local_list, history))
